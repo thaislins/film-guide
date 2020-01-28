@@ -1,7 +1,8 @@
-package com.thaislins.filmguide
+package com.thaislins.filmguide.modules.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.thaislins.filmguide.R
 
 class MainActivity : AppCompatActivity() {
 

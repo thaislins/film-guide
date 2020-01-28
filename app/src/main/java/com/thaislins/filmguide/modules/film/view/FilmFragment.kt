@@ -1,11 +1,11 @@
-package com.thaislins.filmguide
-
+package com.thaislins.filmguide.modules.film.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.thaislins.filmguide.R
 
 class FilmFragment : Fragment() {
 

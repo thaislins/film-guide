@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/filmFragment"
-        android:name="com.thaislins.filmguide.FilmFragment"
+        android:name="com.thaislins.filmguide.modules.film.view.FilmFragment"
         android:label="fragment_film"
         tools:layout="@layout/fragment_film" />
 </navigation>
