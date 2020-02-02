@@ -27,7 +27,7 @@ android {
         def ACCESS_TOKEN = "API_KEY"
 
         debug {
-            buildConfigField "String", "POSTER_URL", '"https://image.tmdb.org/t/p/w200/"'
+            buildConfigField "String", "POSTER_URL", '"https://image.tmdb.org/t/p/w342/"'
             buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
             buildConfigField "String", "API_KEY", '"678c2a0d45021779fadd06bceebf85b3"'
         }

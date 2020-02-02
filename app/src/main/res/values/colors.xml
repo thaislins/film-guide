@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6739b8</color>
-    <color name="colorPrimaryDark">#2b2335</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#2b2335</color>
+    <color name="colorPrimaryDark">#1B1822</color>
+    <color name="colorAccent">#6739b8</color>
     <color name="bunker">#091017</color>
     <color name="nevada">#AEB0B4</color>
 </resources>

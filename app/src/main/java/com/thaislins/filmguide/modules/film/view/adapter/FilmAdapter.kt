@@ -12,9 +12,11 @@ import com.thaislins.filmguide.core.AdapterContract
 import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
 
-class FilmAdapter(private var films: List<Film?>, private var context: Context) :
+class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>(),
     AdapterContract {
+
+    private val loadedFilms: MutableSet<Int> = mutableSetOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -37,7 +39,7 @@ class FilmAdapter(private var films: List<Film?>, private var context: Context) 
 
     class ViewHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        internal var filmImage: ImageView? = itemView.findViewById(R.id.ivFilm)
+        internal val filmImage: ImageView? = itemView.findViewById(R.id.ivFilm)
 
         fun bind(film: Film) {
             binding.film = film
@@ -46,8 +48,15 @@ class FilmAdapter(private var films: List<Film?>, private var context: Context) 
     }
 
     override fun set(list: List<Film>?) {
+        val filteredList = list?.filter { it.id !in loadedFilms }
+
         if (list != null) {
-            this.films = list
+            if (films.isNullOrEmpty()) {
+                films = list.toMutableList()
+            } else {
+                films.addAll(filteredList as MutableList<Film>)
+            }
+            loadedFilms.addAll(filteredList!!.map { it.id })
             notifyDataSetChanged()
         }
     }

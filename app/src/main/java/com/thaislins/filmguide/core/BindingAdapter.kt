@@ -1,6 +1,5 @@
 package com.thaislins.filmguide.core
 
-import android.widget.GridView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.thaislins.filmguide.modules.film.model.Film

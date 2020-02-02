@@ -6,6 +6,7 @@ import java.util.*
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class Film {
+    val id: Int = 0
     val title: String = ""
     val overview: String = ""
     @JsonProperty("poster_path")
