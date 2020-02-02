@@ -10,13 +10,28 @@ android {
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.thaislins.filmguide"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
+        def BASE_URL = "BASE_URL"
+        def POSTER_URL = "POSTER_URL"
+        def ACCESS_TOKEN = "API_KEY"
+
+        debug {
+            buildConfigField "String", "POSTER_URL", '"https://image.tmdb.org/t/p/w200/"'
+            buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
+            buildConfigField "String", "API_KEY", '"678c2a0d45021779fadd06bceebf85b3"'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

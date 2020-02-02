@@ -9,5 +9,14 @@
         android:id="@+id/filmFragment"
         android:name="com.thaislins.filmguide.modules.film.view.FilmFragment"
         android:label="fragment_film"
-        tools:layout="@layout/fragment_film" />
+        tools:layout="@layout/fragment_film" >
+        <action
+            android:id="@+id/action_filmFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.thaislins.filmguide.modules.details.view.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
 </navigation>
