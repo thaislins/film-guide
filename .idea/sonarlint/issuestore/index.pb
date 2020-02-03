@@ -23,8 +23,6 @@ Yapp/src/main/java/com/thaislins/filmguide/modules/film/model/repository/FilmRep
 Yapp/src/main/java/com/thaislins/filmguide/modules/film/model/datasource/FilmDataSource.kt,0/a/0a48afc4347dbb22d2cdf1fb93cfdcf1d383c117
 è
 _app/src/main/java/com/thaislins/filmguide/modules/film/model/datasource/FilmDataSourceRemote.kt,6/1/613c0091023e259158051069158b8b5fd34ba157
-p
-@app/src/main/java/com/thaislins/filmguide/data/remote/TBDMApi.kt,a/3/a395a3405e5aa3d9eb5cb570db2e704b4044a55b
 {
 Kapp/src/main/java/com/thaislins/filmguide/modules/film/view/FilmFragment.kt,3/2/321ae8518c75418c7212cdd214d322fa3c433a30
 @
@@ -37,3 +35,7 @@ t
 Dapp/src/main/java/com/thaislins/filmguide/data/remote/FilmService.kt,b/a/ba92eed9fe483dd320e5ba137feea71ac84f92fe
 Å
 Qapp/src/main/java/com/thaislins/filmguide/modules/details/view/DetailsFragment.kt,7/f/7fede84b8a1e5278f005985d902d86b6e52e98ee
+p
+@app/src/main/java/com/thaislins/filmguide/data/remote/TMDBApi.kt,9/d/9d28b11e863546cc87a760e8c58961c4f5bb9a6c
+P
+ app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e

@@ -15,16 +15,11 @@ class FilmViewModel : ViewModel(), KoinComponent {
 
     private val repository: FilmRepository by inject()
     val films = MutableLiveData<List<Film>>().apply { value = null }
-    private var isRequesting = false
 
     fun loadFilms() {
-        if (isRequesting) return
-
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                isRequesting = true
                 films.postValue(repository.loadAllFilms())
-                isRequesting = false
             } catch (ex: Exception) {
                 Log.e("Error", ex.message)
             }

@@ -6,17 +6,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.thaislins.filmguide.BuildConfig.POSTER_URL
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AdapterContract
 import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
 
+
 class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>(),
     AdapterContract {
 
-    private val loadedFilms: MutableSet<Int> = mutableSetOf()
+    val loadedFilms = mutableSetOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,8 +30,12 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         films[position]?.let { holder.bind(it) }
+        val options: RequestOptions =
+            RequestOptions().placeholder(R.drawable.no_image_found).error(R.drawable.no_image_found)
+
         holder.filmImage?.let {
-            Glide.with(context).load(POSTER_URL + films[position]?.posterPath).into(it)
+            Glide.with(context)
+                .load(POSTER_URL + films[position]?.posterPath).apply(options).into(it)
         }
     }
 
@@ -48,15 +54,15 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
     }
 
     override fun set(list: List<Film>?) {
-        val filteredList = list?.filter { it.id !in loadedFilms }
-
         if (list != null) {
+            val filteredList = list.filter { it.id !in loadedFilms }
+
             if (films.isNullOrEmpty()) {
                 films = list.toMutableList()
             } else {
-                films.addAll(filteredList as MutableList<Film>)
+                films.addAll(filteredList)
             }
-            loadedFilms.addAll(filteredList!!.map { it.id })
+            loadedFilms.addAll(filteredList.map { it.id })
             notifyDataSetChanged()
         }
     }
