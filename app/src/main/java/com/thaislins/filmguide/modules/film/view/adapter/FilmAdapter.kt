@@ -2,16 +2,22 @@ package com.thaislins.filmguide.modules.film.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.thaislins.filmguide.BuildConfig.POSTER_URL
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AdapterContract
 import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
+import java.util.*
 
 
 class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :
@@ -35,7 +41,39 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
 
         holder.filmImage?.let {
             Glide.with(context)
-                .load(POSTER_URL + films[position]?.posterPath).apply(options).into(it)
+                .load(POSTER_URL + films[position]?.posterPath).apply(options)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
+        }
+        setAnimation(holder.itemView, position)
+    }
+
+    private fun setFadeAnimation(view: View) {
+        val anim = AlphaAnimation(0.0f, 1.0f)
+        //anim.duration = FADE_DURATION
+        view.startAnimation(anim)
+    }
+
+    private var lastPosition = -1
+
+    private fun setAnimation(
+        viewToAnimate: View,
+        position: Int
+    ) { // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            val anim = ScaleAnimation(
+                0.0f,
+                1.0f,
+                0.0f,
+                1.0f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f,
+                Animation.RELATIVE_TO_SELF,
+                0.5f
+            )
+            anim.duration =
+                Random().nextInt(501).toLong() //to make duration random number between [0,501)
+            viewToAnimate.startAnimation(anim)
+            lastPosition = position
         }
     }
 
