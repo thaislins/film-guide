@@ -11,7 +11,7 @@
         android:label="fragment_film"
         tools:layout="@layout/fragment_film" >
         <action
-            android:id="@+id/action_filmFragment_to_detailsFragment"
+            android:id="@+id/toDetailsFragment"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment

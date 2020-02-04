@@ -1,11 +1,13 @@
 package com.thaislins.filmguide.modules.film.model
 
+import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-import java.util.*
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
-class Film {
+class Film : Parcelable {
     val id: Int = 0
     val title: String = ""
     val overview: String = ""

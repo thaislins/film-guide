@@ -1,13 +1,14 @@
 package com.thaislins.filmguide.modules.film.view.adapter
 
 import android.content.Context
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -19,12 +20,12 @@ import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
 import java.util.*
 
-
 class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>(),
     AdapterContract {
 
-    val loadedFilms = mutableSetOf<Int>()
+    private var lastPosition = -1
+    private val loadedFilms = mutableSetOf<Int>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -46,14 +47,6 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         }
         setAnimation(holder.itemView, position)
     }
-
-    private fun setFadeAnimation(view: View) {
-        val anim = AlphaAnimation(0.0f, 1.0f)
-        //anim.duration = FADE_DURATION
-        view.startAnimation(anim)
-    }
-
-    private var lastPosition = -1
 
     private fun setAnimation(
         viewToAnimate: View,
@@ -81,16 +74,6 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         return films.size
     }
 
-    class ViewHolder(private val binding: ItemFilmBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        internal val filmImage: ImageView? = itemView.findViewById(R.id.ivFilm)
-
-        fun bind(film: Film) {
-            binding.film = film
-            binding.executePendingBindings()
-        }
-    }
-
     override fun set(list: List<Film>?) {
         if (list != null) {
             val filteredList = list.filter { it.id !in loadedFilms }
@@ -102,6 +85,36 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
             }
             loadedFilms.addAll(filteredList.map { it.id })
             notifyDataSetChanged()
+        }
+    }
+
+    private fun onItemClick(v: View?, holder: RecyclerView.ViewHolder) {
+        val pos = holder.adapterPosition
+        if (pos == RecyclerView.NO_POSITION) return
+
+        Navigation.findNavController(holder.itemView).navigate(
+            R.id.toDetailsFragment, createBundle(context, pos)
+        )
+    }
+
+    private fun createBundle(context: Context, pos: Int): Bundle {
+        val bundle = Bundle()
+        bundle.putParcelable(context.resources.getString(R.string.film_item_key), films[pos])
+        return bundle
+    }
+
+    inner class ViewHolder(private val binding: ItemFilmBinding) :
+        RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        internal val filmImage: ImageView? = itemView.findViewById(R.id.ivFilm)
+        fun bind(film: Film) {
+            binding.root.setOnClickListener(this)
+            binding.film = film
+            binding.executePendingBindings()
+        }
+
+        override fun onClick(v: View?) {
+            onItemClick(v, this)
         }
     }
 }
