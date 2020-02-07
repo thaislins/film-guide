@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.thaislins.filmguide.databinding.FragmentFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.film.model.MovieType
 import com.thaislins.filmguide.modules.film.view.adapter.FilmAdapter
 import com.thaislins.filmguide.modules.film.view.adapter.ImagePagerAdapter
 import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
@@ -21,7 +21,6 @@ class FilmFragment : Fragment() {
 
     private val filmViewModel: FilmViewModel by inject()
     private lateinit var binding: FragmentFilmBinding
-    private val numOfColumns = 3
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +30,13 @@ class FilmFragment : Fragment() {
         binding = FragmentFilmBinding.inflate(inflater, container, false)
         binding.viewModel = filmViewModel
         binding.lifecycleOwner = this
-        binding.rvFilms.adapter = FilmAdapter(mutableListOf<Film?>(), this.context!!)
+        binding.rvPopularFilms.adapter = FilmAdapter(mutableListOf<Film?>(), this.context!!)
 
-        with(binding.rvFilms) {
-            layoutManager = androidx.recyclerview.widget.GridLayoutManager(context, numOfColumns)
+        val horizontalLayoutManagaer =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        with(binding.rvPopularFilms) {
+            layoutManager = horizontalLayoutManagaer
         }
 
         return binding.root
@@ -42,10 +44,10 @@ class FilmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.viewModel?.loadFilms()
-        binding.viewModel?.loadTrending()
+        binding.viewModel?.loadFilms(MovieType.TRENDING.ordinal)
+        binding.viewModel?.loadFilms(MovieType.TOPRATED.ordinal)
         observeTrendingFilms()
-        addOnScrollListener()
+        //addOnScrollListener()
     }
 
     private fun observeTrendingFilms() {
@@ -73,7 +75,7 @@ class FilmFragment : Fragment() {
         autoHandler.postDelayed(runnable, 1500)
     }
 
-    private fun addOnScrollListener() {
+    /*private fun addOnScrollListener() {
         var pastVisiblesItems: Int
         var visibleItemCount: Int
         var totalItemCount: Int
@@ -92,5 +94,5 @@ class FilmFragment : Fragment() {
                 }
             }
         })
-    }
+    }*/
 }

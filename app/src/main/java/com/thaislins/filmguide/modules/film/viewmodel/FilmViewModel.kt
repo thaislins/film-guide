@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.film.model.MovieType
 import com.thaislins.filmguide.modules.film.model.datasource.FilmDataSourceRemote
 import com.thaislins.filmguide.modules.film.model.repository.FilmRepository
 import kotlinx.coroutines.Dispatchers
@@ -19,19 +20,17 @@ class FilmViewModel : ViewModel(), KoinComponent {
     val films = MutableLiveData<List<Film>>().apply { value = null }
     val trendingFilms = MutableLiveData<List<Film>>().apply { value = null }
 
-    fun loadTrending() {
+    fun loadFilms(movieType: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                trendingFilms.postValue(repository.loadTrendingFilms())
-            } catch (ex: Exception) {
-            }
-        }
-    }
-
-    fun loadFilms() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                films.postValue(repository.loadAllPopularFilms())
+                when (movieType) {
+                    MovieType.TRENDING.ordinal -> trendingFilms.postValue(
+                        repository.loadFilms(
+                            movieType
+                        )
+                    )
+                    else -> films.postValue(repository.loadFilms(movieType))
+                }
             } catch (ex: Exception) {
             }
         }
