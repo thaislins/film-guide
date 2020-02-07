@@ -47,13 +47,18 @@
                     app:piv_unselectedColor="@android:color/darker_gray"
                     app:piv_viewPager="@id/pager" />
 
-                <TextView
-                    android:id="@+id/tvPopularFilms"
+                <Button
+                    android:id="@+id/btnPopularFilms"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/marginSmall"
                     android:layout_marginTop="@dimen/marginLarge"
+                    android:layout_marginEnd="@dimen/marginSmall"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_arrow_right"
                     android:text="@string/film_fragment_popular_movies"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -66,18 +71,23 @@
                     android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
-                    app:items="@{viewModel.films}"
+                    app:items="@{viewModel.popularFilms}"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tvPopularFilms"
+                    app:layout_constraintTop_toBottomOf="@id/btnPopularFilms"
                     tools:listitem="@layout/item_film" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvTopRated"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/marginSmall"
                     android:layout_marginTop="@dimen/marginLarge"
+                    android:layout_marginEnd="@dimen/marginSmall"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_arrow_right"
                     android:text="@string/film_fragment_top_rated"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -90,18 +100,23 @@
                     android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
-                    app:items="@{viewModel.films}"
+                    app:items="@{viewModel.topRated}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvTopRated"
                     tools:listitem="@layout/item_film" />
 
-                <TextView
+                <Button
                     android:id="@+id/tvNowPlaying"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/marginSmall"
                     android:layout_marginTop="@dimen/marginMedium"
+                    android:layout_marginEnd="@dimen/marginSmall"
+                    android:background="@android:color/transparent"
+                    android:drawableEnd="@drawable/ic_arrow_right"
                     android:text="@string/film_fragment_now_playing"
+                    android:textAlignment="textStart"
+                    android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -114,7 +129,7 @@
                     android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
-                    app:items="@{viewModel.films}"
+                    app:items="@{viewModel.nowPlaying}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvNowPlaying"
                     tools:listitem="@layout/item_film" />

@@ -30,14 +30,7 @@ class FilmFragment : Fragment() {
         binding = FragmentFilmBinding.inflate(inflater, container, false)
         binding.viewModel = filmViewModel
         binding.lifecycleOwner = this
-        binding.rvPopularFilms.adapter = FilmAdapter(mutableListOf<Film?>(), this.context!!)
-
-        val horizontalLayoutManagaer =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        with(binding.rvPopularFilms) {
-            layoutManager = horizontalLayoutManagaer
-        }
+        setAdapters()
 
         return binding.root
     }
@@ -45,9 +38,21 @@ class FilmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel?.loadFilms(MovieType.TRENDING.ordinal)
+        binding.viewModel?.loadFilms(MovieType.POPULAR.ordinal)
+        binding.viewModel?.loadFilms(MovieType.NOWPLAYING.ordinal)
         binding.viewModel?.loadFilms(MovieType.TOPRATED.ordinal)
         observeTrendingFilms()
-        //addOnScrollListener()
+    }
+
+    private fun setAdapters() {
+        with(binding) {
+            rvPopularFilms.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
+            rvPopularFilms.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvNowPlaying.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
+            rvNowPlaying.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvTopRated.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
+            rvTopRated.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
     }
 
     private fun observeTrendingFilms() {
