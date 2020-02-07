@@ -3,8 +3,8 @@ package com.thaislins.filmguide.app
 import android.app.Application
 import android.content.Context
 import com.thaislins.filmguide.data.remote.TMDBApi
-import com.thaislins.filmguide.modules.film.model.datasource.FilmDataSourceRemote
-import com.thaislins.filmguide.modules.film.model.repository.FilmRepository
+import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceImp
+import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
 import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -15,12 +15,10 @@ import org.koin.dsl.module
 
 class FilmGuideApplication : Application() {
 
-    private val tmdbApi: TMDBApi? by inject()
-
     private val listofModules = module {
         viewModel { FilmViewModel() }
         single { TMDBApi() }
-        single { FilmRepository(FilmDataSourceRemote(tmdbApi?.getFilmService()!!)) }
+        single { DetailsRepository(DetailsDataSourceImp()) }
     }
 
     companion object {

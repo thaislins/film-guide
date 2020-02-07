@@ -25,9 +25,11 @@ android {
         def BASE_URL = "BASE_URL"
         def POSTER_URL = "POSTER_URL"
         def ACCESS_TOKEN = "API_KEY"
+        def BACKDROP_URL = "BACKDROP_URL"
 
         debug {
             buildConfigField "String", "POSTER_URL", '"https://image.tmdb.org/t/p/w342/"'
+            buildConfigField "String", "BACKDROP_URL", '"https://image.tmdb.org/t/p/original/"'
             buildConfigField "String", "BASE_URL", '"https://api.themoviedb.org/"'
             buildConfigField "String", "API_KEY", '"678c2a0d45021779fadd06bceebf85b3"'
         }
@@ -50,6 +52,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Page Indicator View
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3"

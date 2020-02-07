@@ -11,17 +11,31 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
     private var hasItems = true
     private var response: Response? = null
 
-    override suspend fun loadAllFilms(): List<Film>? {
+    override suspend fun loadAllPopularFilms(): List<Film>? {
         return if (hasItems) {
-            loadFilms()
+            loadPopularFilms()
         } else {
             return null
         }
     }
 
-    suspend fun loadFilms(): List<Film> {
+    override suspend fun loadTrendingFilms(): List<Film> {
         return try {
-            response = filmService.getFilms(API_KEY, "en-US", page.toString())
+            response = filmService.getTrendingFilms(API_KEY)
+
+            if (response != null) {
+                response?.results!!
+            } else {
+                throw Exception()
+            }
+        } catch (ex: Exception) {
+            throw Exception()
+        }
+    }
+
+    suspend fun loadPopularFilms(): List<Film> {
+        return try {
+            response = filmService.getPopularFilms(API_KEY, "en-US", page.toString())
             page += page
             hasItems = page <= response?.totalPages!!
 

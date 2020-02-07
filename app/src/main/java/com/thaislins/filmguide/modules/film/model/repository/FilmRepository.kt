@@ -5,7 +5,11 @@ import com.thaislins.filmguide.modules.film.model.datasource.FilmDataSource
 
 class FilmRepository(private val filmDataSource: FilmDataSource) : FilmDataSource {
 
-    override suspend fun loadAllFilms(): List<Film>? {
-        return filmDataSource.loadAllFilms()
+    override suspend fun loadAllPopularFilms(): List<Film>? {
+        return filmDataSource.loadAllPopularFilms()
+    }
+
+    override suspend fun loadTrendingFilms(): List<Film>? {
+        return filmDataSource.loadTrendingFilms()
     }
 }

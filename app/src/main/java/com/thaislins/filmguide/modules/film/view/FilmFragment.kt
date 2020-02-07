@@ -1,16 +1,20 @@
 package com.thaislins.filmguide.modules.film.view
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.thaislins.filmguide.databinding.FragmentFilmBinding
 import com.thaislins.filmguide.modules.film.model.Film
 import com.thaislins.filmguide.modules.film.view.adapter.FilmAdapter
+import com.thaislins.filmguide.modules.film.view.adapter.ImagePagerAdapter
 import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
+import kotlinx.android.synthetic.main.fragment_film.*
 import org.koin.android.ext.android.inject
 
 class FilmFragment : Fragment() {
@@ -39,7 +43,34 @@ class FilmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel?.loadFilms()
+        binding.viewModel?.loadTrending()
+        observeTrendingFilms()
         addOnScrollListener()
+    }
+
+    private fun observeTrendingFilms() {
+        filmViewModel.trendingFilms.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                pager.adapter = ImagePagerAdapter(context!!, it.take(5))
+                addAutomaticScroll()
+            }
+        })
+    }
+
+    private fun addAutomaticScroll() {
+        val autoHandler = Handler()
+        val runnable = object : Runnable {
+            override fun run() {
+                if (pager.currentItem < pager.adapter!!.count - 1) {
+                    pager.currentItem = pager.currentItem + 1
+                    autoHandler.postDelayed(this, 1500)
+                } else {
+                    pager.currentItem = 0
+                    autoHandler.postDelayed(this, 1500)
+                }
+            }
+        }
+        autoHandler.postDelayed(runnable, 1500)
     }
 
     private fun addOnScrollListener() {

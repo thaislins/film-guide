@@ -39,3 +39,13 @@ p
 @app/src/main/java/com/thaislins/filmguide/data/remote/TMDBApi.kt,9/d/9d28b11e863546cc87a760e8c58961c4f5bb9a6c
 P
  app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
+è
+_app/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSource.kt,8/b/8beca39d6a20ce0b39fcef44ca0a81ff4909da2d
+è
+_app/src/main/java/com/thaislins/filmguide/modules/details/model/repository/DetailsRepository.kt,b/7/b7f0a6901f8fcc50ac497427b5f5b2ab6ae4e245
+í
+bapp/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSourceImp.kt,0/0/002984bca33a44e4190b46b11c396784cba1571a
+á
+Wapp/src/main/java/com/thaislins/filmguide/modules/details/viewmodel/DetailsViewModel.kt,5/2/52ba4c23da13432f5be8d826e4048edba1e42dd8
+à
+Xapp/src/main/java/com/thaislins/filmguide/modules/film/view/adapter/ImagePagerAdapter.kt,1/5/157d1aac8bab3790ff4a1d737fc32e95e8539dbd
