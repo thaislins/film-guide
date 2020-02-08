@@ -1,13 +1,13 @@
-package com.thaislins.filmguide.modules.film.viewmodel
+package com.thaislins.filmguide.modules.home.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.data.remote.TMDBApi
-import com.thaislins.filmguide.modules.film.model.Film
-import com.thaislins.filmguide.modules.film.model.MovieType
-import com.thaislins.filmguide.modules.film.model.datasource.FilmDataSourceRemote
-import com.thaislins.filmguide.modules.film.model.repository.FilmRepository
+import com.thaislins.filmguide.modules.home.model.Film
+import com.thaislins.filmguide.modules.home.model.MovieType
+import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
+import com.thaislins.filmguide.modules.home.model.repository.FilmRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent

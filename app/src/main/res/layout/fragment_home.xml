@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel" />
+            type="com.thaislins.filmguide.modules.home.viewmodel.FilmViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
-        tools:context=".modules.film.view.FilmFragment">
+        tools:context=".modules.home.view.HomeFragment">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -68,7 +68,6 @@
                     android:id="@+id/rvPopularFilms"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
                     app:items="@{viewModel.popularFilms}"
@@ -97,7 +96,6 @@
                     android:id="@+id/rvTopRated"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
                     app:items="@{viewModel.topRated}"
@@ -126,7 +124,6 @@
                     android:id="@+id/rvNowPlaying"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_marginTop="@dimen/marginSmall"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
                     app:items="@{viewModel.nowPlaying}"

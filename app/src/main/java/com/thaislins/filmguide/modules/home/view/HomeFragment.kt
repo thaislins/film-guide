@@ -1,4 +1,4 @@
-package com.thaislins.filmguide.modules.film.view
+package com.thaislins.filmguide.modules.home.view
 
 import android.os.Bundle
 import android.os.Handler
@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thaislins.filmguide.databinding.FragmentFilmBinding
-import com.thaislins.filmguide.modules.film.model.Film
-import com.thaislins.filmguide.modules.film.model.MovieType
-import com.thaislins.filmguide.modules.film.view.adapter.FilmAdapter
-import com.thaislins.filmguide.modules.film.view.adapter.ImagePagerAdapter
-import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
+import com.thaislins.filmguide.modules.home.model.Film
+import com.thaislins.filmguide.modules.home.model.MovieType
+import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
+import com.thaislins.filmguide.modules.home.view.adapter.ImagePagerAdapter
+import com.thaislins.filmguide.modules.home.viewmodel.FilmViewModel
 import kotlinx.android.synthetic.main.fragment_film.*
 import org.koin.android.ext.android.inject
 

@@ -1,7 +1,7 @@
-package com.thaislins.filmguide.modules.film.model.repository
+package com.thaislins.filmguide.modules.home.model.repository
 
-import com.thaislins.filmguide.modules.film.model.Film
-import com.thaislins.filmguide.modules.film.model.datasource.FilmDataSource
+import com.thaislins.filmguide.modules.home.model.Film
+import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSource
 
 class FilmRepository(private val filmDataSource: FilmDataSource) : FilmDataSource {
 
