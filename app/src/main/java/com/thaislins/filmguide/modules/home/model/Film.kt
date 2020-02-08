@@ -1,4 +1,4 @@
-package com.thaislins.filmguide.modules.film.model
+package com.thaislins.filmguide.modules.home.model
 
 import android.os.Parcelable
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -19,4 +19,7 @@ class Film : Parcelable {
     val backdropPath: String = ""
     @JsonProperty("release_date")
     val year: String = ""
+    val video: String = ""
+    @JsonProperty("genre_ids")
+    val genreIds: List<Int>? = null
 }

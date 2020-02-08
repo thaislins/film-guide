@@ -129,17 +129,5 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/favorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/marginMedium"
-            app:elevation="6dp"
-            app:layout_anchor="@id/scrolling_container"
-            app:layout_anchorGravity="bottom|right|end"
-            app:pressedTranslationZ="12dp"
-            app:rippleColor="@android:color/white" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

@@ -11,7 +11,7 @@ import com.thaislins.filmguide.BuildConfig
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.databinding.FragmentDetailsBinding
 import com.thaislins.filmguide.modules.details.viewmodel.DetailsViewModel
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment() {

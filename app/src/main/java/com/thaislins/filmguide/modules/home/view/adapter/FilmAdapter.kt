@@ -1,4 +1,4 @@
-package com.thaislins.filmguide.modules.film.view.adapter
+package com.thaislins.filmguide.modules.home.view.adapter
 
 import android.content.Context
 import android.os.Bundle
@@ -17,7 +17,7 @@ import com.thaislins.filmguide.BuildConfig.POSTER_URL
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AdapterContract
 import com.thaislins.filmguide.databinding.ItemFilmBinding
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 import java.util.*
 
 class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :

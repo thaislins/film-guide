@@ -7,7 +7,7 @@
 
         <variable
             name="film"
-            type="com.thaislins.filmguide.modules.film.model.Film" />
+            type="com.thaislins.filmguide.modules.home.model.Film" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

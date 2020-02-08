@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/filmFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/filmFragment"
-        android:name="com.thaislins.filmguide.modules.film.view.FilmFragment"
-        android:label="fragment_film"
-        tools:layout="@layout/fragment_film" >
+        android:id="@+id/homeFragment"
+        android:name="com.thaislins.filmguide.modules.home.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/toDetailsFragment"
             app:destination="@id/detailsFragment" />

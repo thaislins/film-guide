@@ -1,10 +1,10 @@
-package com.thaislins.filmguide.modules.film.model.datasource
+package com.thaislins.filmguide.modules.home.model.datasource
 
 import com.thaislins.filmguide.BuildConfig.API_KEY
 import com.thaislins.filmguide.data.remote.FilmService
-import com.thaislins.filmguide.modules.film.model.Film
-import com.thaislins.filmguide.modules.film.model.MovieType
-import com.thaislins.filmguide.modules.film.model.Response
+import com.thaislins.filmguide.modules.home.model.Film
+import com.thaislins.filmguide.modules.home.model.MovieType
+import com.thaislins.filmguide.modules.home.model.Response
 
 class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {
 

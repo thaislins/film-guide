@@ -1,34 +1,35 @@
 package com.thaislins.filmguide.modules.home.view
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.thaislins.filmguide.databinding.FragmentFilmBinding
+import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.model.MovieType
 import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
 import com.thaislins.filmguide.modules.home.view.adapter.ImagePagerAdapter
-import com.thaislins.filmguide.modules.home.viewmodel.FilmViewModel
-import kotlinx.android.synthetic.main.fragment_film.*
+import com.thaislins.filmguide.modules.home.viewmodel.HomeViewModel
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
+import java.util.*
 
-class FilmFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    private val filmViewModel: FilmViewModel by inject()
-    private lateinit var binding: FragmentFilmBinding
+    private val homeViewModel: HomeViewModel by inject()
+    private lateinit var timer: Timer
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentFilmBinding.inflate(inflater, container, false)
-        binding.viewModel = filmViewModel
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.viewModel = homeViewModel
         binding.lifecycleOwner = this
         setAdapters()
 
@@ -47,16 +48,19 @@ class FilmFragment : Fragment() {
     private fun setAdapters() {
         with(binding) {
             rvPopularFilms.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
-            rvPopularFilms.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvPopularFilms.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvNowPlaying.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
-            rvNowPlaying.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvNowPlaying.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             rvTopRated.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
-            rvTopRated.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            rvTopRated.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
 
     private fun observeTrendingFilms() {
-        filmViewModel.trendingFilms.observe(viewLifecycleOwner, Observer {
+        homeViewModel.trendingFilms.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 pager.adapter = ImagePagerAdapter(context!!, it.take(5))
                 addAutomaticScroll()
@@ -65,19 +69,25 @@ class FilmFragment : Fragment() {
     }
 
     private fun addAutomaticScroll() {
-        val autoHandler = Handler()
-        val runnable = object : Runnable {
+        val timerTask: TimerTask = object : TimerTask() {
             override fun run() {
-                if (pager.currentItem < pager.adapter!!.count - 1) {
-                    pager.currentItem = pager.currentItem + 1
-                    autoHandler.postDelayed(this, 1500)
-                } else {
-                    pager.currentItem = 0
-                    autoHandler.postDelayed(this, 1500)
-                }
+                pager.post(Runnable {
+                    if (pager.currentItem < pager.adapter!!.count - 1) {
+                        pager.currentItem = pager.currentItem + 1
+                    } else {
+                        pager.currentItem = 0
+                    }
+                })
             }
         }
-        autoHandler.postDelayed(runnable, 1500)
+
+        timer = Timer()
+        timer.schedule(timerTask, 1500, 1500)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer.cancel()
     }
 
     /*private fun addOnScrollListener() {

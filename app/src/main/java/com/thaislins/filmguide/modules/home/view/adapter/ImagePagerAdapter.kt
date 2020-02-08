@@ -1,4 +1,4 @@
-package com.thaislins.filmguide.modules.film.view.adapter
+package com.thaislins.filmguide.modules.home.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,9 +11,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.thaislins.filmguide.BuildConfig
 import com.thaislins.filmguide.R
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 
-class ImagePagerAdapter(private val context: Context, private val trendingFilms: List<Film>) :
+class ImagePagerAdapter(private val context: Context, var trendingFilms: List<Film>) :
     PagerAdapter() {
 
     private val mLayoutInflater: LayoutInflater by lazy {

@@ -1,6 +1,6 @@
 package com.thaislins.filmguide.data.remote
 
-import com.thaislins.filmguide.modules.film.model.Response
+import com.thaislins.filmguide.modules.home.model.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

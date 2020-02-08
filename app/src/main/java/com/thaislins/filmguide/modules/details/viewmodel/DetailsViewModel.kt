@@ -3,7 +3,7 @@ package com.thaislins.filmguide.modules.details.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 

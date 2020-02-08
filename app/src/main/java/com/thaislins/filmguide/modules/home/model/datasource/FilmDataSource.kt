@@ -1,6 +1,6 @@
-package com.thaislins.filmguide.modules.film.model.datasource
+package com.thaislins.filmguide.modules.home.model.datasource
 
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 
 interface FilmDataSource {
     suspend fun loadFilms(movieType: Int): List<Film>?

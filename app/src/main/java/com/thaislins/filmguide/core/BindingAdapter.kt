@@ -2,7 +2,7 @@ package com.thaislins.filmguide.core
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.thaislins.filmguide.modules.film.model.Film
+import com.thaislins.filmguide.modules.home.model.Film
 
 object BindingAdapters {
     @BindingAdapter("items")
