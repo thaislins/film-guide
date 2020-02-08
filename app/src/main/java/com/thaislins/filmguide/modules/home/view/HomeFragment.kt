@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,7 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private val homeViewModel: HomeViewModel by inject()
-    private lateinit var timer: Timer
+    private var timer: Timer = Timer()
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar!!.show()
         binding.viewModel?.loadFilms(MovieType.TRENDING.ordinal)
         binding.viewModel?.loadFilms(MovieType.POPULAR.ordinal)
         binding.viewModel?.loadFilms(MovieType.NOWPLAYING.ordinal)
@@ -62,31 +64,41 @@ class HomeFragment : Fragment() {
     private fun observeTrendingFilms() {
         homeViewModel.trendingFilms.observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                pager.adapter = ImagePagerAdapter(context!!, it.take(5))
-                addAutomaticScroll()
+                pager?.adapter = ImagePagerAdapter(context!!, it.take(5))
             }
         })
     }
 
     private fun addAutomaticScroll() {
-        val timerTask: TimerTask = object : TimerTask() {
-            override fun run() {
-                pager.post(Runnable {
-                    if (pager.currentItem < pager.adapter!!.count - 1) {
-                        pager.currentItem = pager.currentItem + 1
-                    } else {
-                        pager.currentItem = 0
-                    }
-                })
+        pager?.let {
+            val timerTask: TimerTask = object : TimerTask() {
+                override fun run() {
+                    pager?.post(Runnable {
+                        val currentItem = pager?.currentItem
+                        val previousItem = pager?.adapter?.count?.minus(1)
+                        if (currentItem != null && previousItem != null) {
+                            if (currentItem < previousItem) {
+                                pager?.currentItem = pager?.currentItem?.plus(1)!!
+                            } else {
+                                pager?.currentItem = 0
+                            }
+                        }
+                    })
+                }
             }
-        }
 
-        timer = Timer()
-        timer.schedule(timerTask, 1500, 1500)
+            timer = Timer()
+            timer.schedule(timerTask, 1500, 1500)
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onResume() {
+        super.onResume()
+        addAutomaticScroll()
+    }
+
+    override fun onStop() {
+        super.onStop()
         timer.cancel()
     }
 

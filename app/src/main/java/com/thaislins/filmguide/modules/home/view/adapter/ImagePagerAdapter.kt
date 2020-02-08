@@ -25,7 +25,7 @@ class ImagePagerAdapter(private val context: Context, var trendingFilms: List<Fi
     }
 
     override fun isViewFromObject(view: View, obj: Any): Boolean {
-        return view === obj as ConstraintLayout
+        return view == obj
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

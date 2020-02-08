@@ -29,4 +29,10 @@ interface FilmService {
         @Query("api_key") apiKey: String, @Query("language") language: String,
         @Query("page") page: Int
     ): Response?
+
+    @GET("3/movie/top_rated")
+    suspend fun getSimilarMovies(
+        @Query("movie_id") movieId: String, @Query("api_key") apiKey: String,
+        @Query("language") language: Int, @Query("page") page: Int
+    ): Response?
 }
