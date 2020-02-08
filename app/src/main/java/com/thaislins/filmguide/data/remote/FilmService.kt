@@ -2,6 +2,7 @@ package com.thaislins.filmguide.data.remote
 
 import com.thaislins.filmguide.modules.home.model.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface FilmService {
@@ -30,9 +31,9 @@ interface FilmService {
         @Query("page") page: Int
     ): Response?
 
-    @GET("3/movie/top_rated")
+    @GET("3/movie/{movie_id}/similar")
     suspend fun getSimilarFilms(
-        @Query("movie_id") movieId: Int, @Query("api_key") apiKey: String,
+        @Path("movie_id") movieId: Int, @Query("api_key") apiKey: String,
         @Query("language") language: String, @Query("page") page: Int
     ): Response?
 }

@@ -75,13 +75,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginLeft="16dp"
-                    android:text="@{viewModel.title}"
-                    android:layout_marginRight="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="4dp"
+                    android:text="@{viewModel.title}"
                     android:textColor="@android:color/white"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/movie_year"
@@ -110,7 +110,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginRight="16dp"
-                    android:text="Summary"
+                    android:text="@string/details_fragment_summary"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@android:color/white" />
 
@@ -130,7 +130,17 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="32dp"
                     android:layout_marginRight="16dp"
-                    android:text="Similar Movies"
+                    android:text="@string/details_fragment_trailers"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="16dp"
+                    android:text="@string/details_fragment_similar_movies"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@android:color/white" />
 
@@ -138,6 +148,7 @@
                     android:id="@+id/rvSimilarMovies"
                     android:layout_width="match_parent"
                     android:layout_height="170dp"
+                    android:layout_marginTop="16dp"
                     android:background="@color/colorPrimaryDark"
                     android:orientation="horizontal"
                     app:items="@{viewModel.similarFilms}"

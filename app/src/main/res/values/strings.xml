@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">Film Guide</string>
 
-    <!--  Film Fragment -->
+    <!--  Home Fragment -->
     <string name="film_item_key">film-item-key</string>
-    <string name="film_fragment_popular_movies">Popular Movies</string>
-    <string name="film_fragment_top_rated">Top Rated</string>
-    <string name="film_fragment_now_playing">Now Playing</string>
+    <string name="home_fragment_popular_movies">Popular Movies</string>
+    <string name="home_fragment_top_rated">Top Rated</string>
+    <string name="home_fragment_now_playing">Now Playing</string>
+
+    <!--  Details Fragment -->
+    <string name="details_fragment_summary">Summary</string>
+    <string name="details_fragment_trailers">Trailers</string>
+    <string name="details_fragment_similar_movies">Similar Movies</string>
 </resources>
