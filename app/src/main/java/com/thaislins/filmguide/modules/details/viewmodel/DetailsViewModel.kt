@@ -2,14 +2,15 @@ package com.thaislins.filmguide.modules.details.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
 import com.thaislins.filmguide.modules.home.model.Film
+import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class DetailsViewModel : ViewModel(), KoinComponent {
 
@@ -17,12 +18,20 @@ class DetailsViewModel : ViewModel(), KoinComponent {
     var year = MutableLiveData<String>()
     var description = MutableLiveData<String>()
     var title = MutableLiveData<String>()
+    val similarFilms = MutableLiveData<List<Film>>().apply { value = null }
 
-    fun getMovieInfo(film: Film?) {
+    fun getFilmDetails(film: Film?) {
         setReleaseDate(film?.year)
         title.value = film?.title
         description.value = film?.overview
-        detailsRepository.getMovieDetails(film)
+
+        viewModelScope.launch {
+            try {
+                film?.id?.let { similarFilms.postValue(detailsRepository.getSimilarFilms(it)) }
+            } catch (ex: Exception) {
+
+            }
+        }
     }
 
     private fun setReleaseDate(value: String?) {

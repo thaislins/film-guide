@@ -4,5 +4,5 @@ import com.thaislins.filmguide.modules.home.model.Film
 
 interface DetailsDataSource {
 
-    fun getMovieDetails(film: Film?)
+    suspend fun getSimilarFilms(movieId: Int): List<Film>
 }

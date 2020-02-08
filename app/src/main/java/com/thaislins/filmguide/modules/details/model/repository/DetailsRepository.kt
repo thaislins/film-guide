@@ -5,7 +5,7 @@ import com.thaislins.filmguide.modules.home.model.Film
 
 class DetailsRepository(private val detailsDataSource: DetailsDataSource) : DetailsDataSource {
 
-    override fun getMovieDetails(film: Film?) {
-        detailsDataSource.getMovieDetails(film)
+    override suspend fun getSimilarFilms(movieId: Int): List<Film> {
+        return detailsDataSource.getSimilarFilms(movieId)
     }
 }
