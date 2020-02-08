@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.thaislins.filmguide.BuildConfig
@@ -39,12 +40,21 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar!!.hide()
-
         film = arguments?.getParcelable(resources.getString(R.string.film_item_key))
         detailsViewModel.getFilmDetails(film)
         ivMoviePoster.let {
             Glide.with(context!!)
                 .load(BuildConfig.BACKDROP_URL + film?.backdropPath).into(it)
         }
+
+        observeSimilarFilms()
+    }
+
+    private fun observeSimilarFilms() {
+        detailsViewModel.similarFilms.observe(viewLifecycleOwner, Observer {
+            if (!it.isNullOrEmpty()) {
+                tvSimilarMovies.visibility = View.VISIBLE
+            }
+        })
     }
 }

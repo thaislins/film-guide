@@ -1,5 +1,6 @@
 package com.thaislins.filmguide.data.remote
 
+import com.thaislins.filmguide.modules.details.model.GenreResponse
 import com.thaislins.filmguide.modules.home.model.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -24,7 +25,6 @@ interface FilmService {
         @Query("page") page: Int
     ): Response?
 
-    //3/movie/top_rated
     @GET("3/movie/top_rated")
     suspend fun getTopRated(
         @Query("api_key") apiKey: String, @Query("language") language: String,
@@ -36,4 +36,9 @@ interface FilmService {
         @Path("movie_id") movieId: Int, @Query("api_key") apiKey: String,
         @Query("language") language: String, @Query("page") page: Int
     ): Response?
+
+    @GET("3/genre/movie/list")
+    suspend fun getGenreList(
+        @Query("api_key") apiKey: String, @Query("language") language: String
+    ): GenreResponse?
 }

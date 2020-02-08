@@ -101,7 +101,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:fontFamily="sans-serif-light"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:text="@{viewModel.genres}"
+                    android:textSize="12sp"
                     android:textColor="@android:color/white" />
 
                 <TextView
@@ -135,6 +136,7 @@
                     android:textColor="@android:color/white" />
 
                 <TextView
+                    android:id="@+id/tvSimilarMovies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
@@ -142,7 +144,8 @@
                     android:layout_marginRight="16dp"
                     android:text="@string/details_fragment_similar_movies"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:visibility="gone" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSimilarMovies"

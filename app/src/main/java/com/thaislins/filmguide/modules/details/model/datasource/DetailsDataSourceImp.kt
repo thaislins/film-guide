@@ -2,12 +2,23 @@ package com.thaislins.filmguide.modules.details.model.datasource
 
 import com.thaislins.filmguide.BuildConfig.API_KEY
 import com.thaislins.filmguide.data.remote.FilmService
+import com.thaislins.filmguide.modules.details.model.Genre
 import com.thaislins.filmguide.modules.home.model.Film
 
 class DetailsDataSourceImp(private val filmService: FilmService) : DetailsDataSource {
 
-    fun getGenres() {
+    override suspend fun getGenres(): List<Genre> {
+        return try {
+            val response = filmService.getGenreList(API_KEY, "en-US")
 
+            if (response != null) {
+                response.genres!!
+            } else {
+                throw Exception()
+            }
+        } catch (ex: Exception) {
+            throw Exception()
+        }
     }
 
     fun getVideos() {

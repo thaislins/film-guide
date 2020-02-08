@@ -49,3 +49,7 @@ Xapp/src/main/java/com/thaislins/filmguide/modules/home/view/adapter/ImagePagerA
 Rapp/src/main/java/com/thaislins/filmguide/modules/home/view/adapter/FilmAdapter.kt,6/7/67fa70ec08cb7f59420628ed9ed37f7a6863602c
 Å
 Qapp/src/main/java/com/thaislins/filmguide/modules/home/viewmodel/HomeViewModel.kt,9/0/9042ae68004b23bb70b73eb2ab931ec7aa1cb71d
+Ä
+Papp/src/main/java/com/thaislins/filmguide/modules/details/model/GenreResponse.kt,a/d/ad27b85ae89ea22f34143c70e7e4bbfbe1627723
+x
+Happ/src/main/java/com/thaislins/filmguide/modules/details/model/Genre.kt,f/9/f9a9687b79a309a21fa162ae24ed423162a0bc8a
