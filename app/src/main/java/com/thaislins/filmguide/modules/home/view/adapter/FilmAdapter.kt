@@ -44,7 +44,7 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         holder.filmImage?.let {
             Glide.with(context)
                 .load(POSTER_URL + films[position]?.posterPath).apply(options)
-                .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(it)
         }
 
         if (films[position]?.isWatched!!)

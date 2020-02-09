@@ -1,5 +1,7 @@
 package com.thaislins.filmguide.modules.home.view
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity

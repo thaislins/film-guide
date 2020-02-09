@@ -2,17 +2,19 @@ package com.thaislins.filmguide.modules.main
 
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import com.thaislins.filmguide.R
+import com.thaislins.filmguide.core.Connectivity
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val network = Connectivity(applicationContext)
+        network.registerNetworkCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

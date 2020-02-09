@@ -1,11 +1,28 @@
 package com.thaislins.filmguide.modules.home.model.repository
 
+import com.thaislins.filmguide.core.isNetworkConnected
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSource
+import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
+import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
 
-class HomeRepository(private val filmDataSource: FilmDataSource) : FilmDataSource {
+class HomeRepository(
+    private val remoteDataSource: FilmDataSourceRemote,
+    private val localDataSource: FilmDataSourceLocal
+) : FilmDataSource {
 
     override suspend fun loadFilms(movieType: Int): List<Film>? {
-        return filmDataSource.loadFilms(movieType)
+        return if (isNetworkConnected) {
+            val list = remoteDataSource.loadFilms(movieType)
+            list.forEach { it.filter = movieType }
+            list.forEach { localDataSource.save(it) }
+            list
+        } else {
+            localDataSource.loadFilms(movieType)
+        }
+    }
+
+    override suspend fun save(film: Film) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
