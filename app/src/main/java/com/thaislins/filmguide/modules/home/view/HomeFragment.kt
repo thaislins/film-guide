@@ -88,7 +88,7 @@ class HomeFragment : Fragment() {
             }
 
             timer = Timer()
-            timer.schedule(timerTask, 1500, 1500)
+            timer.schedule(timerTask, 3000, 3000)
         }
     }
 

@@ -74,9 +74,9 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         return films.size
     }
 
-    override fun set(list: List<Film>?) {
+    override fun set(list: List<Any>?) {
         if (list != null) {
-            val filteredList = list.filter { it.id !in loadedFilms }
+            val filteredList = (list as List<Film>).filter { it.id !in loadedFilms }
 
             if (films.isNullOrEmpty()) {
                 films = list.toMutableList()

@@ -1,6 +1,7 @@
 package com.thaislins.filmguide.data.remote
 
 import com.thaislins.filmguide.modules.details.model.GenreResponse
+import com.thaislins.filmguide.modules.details.model.VideoResponse
 import com.thaislins.filmguide.modules.home.model.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -41,4 +42,10 @@ interface FilmService {
     suspend fun getGenreList(
         @Query("api_key") apiKey: String, @Query("language") language: String
     ): GenreResponse?
+
+    @GET("3/movie/{movie_id}/videos")
+    suspend fun getFilmTrailers(
+        @Path("movie_id") movieId: Int, @Query("api_key") apiKey: String,
+        @Query("language") language: String
+    ): VideoResponse?
 }

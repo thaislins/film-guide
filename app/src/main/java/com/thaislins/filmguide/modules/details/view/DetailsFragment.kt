@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.thaislins.filmguide.BuildConfig
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.databinding.FragmentDetailsBinding
+import com.thaislins.filmguide.modules.details.view.adapter.VideoAdapter
 import com.thaislins.filmguide.modules.details.viewmodel.DetailsViewModel
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
@@ -31,6 +32,10 @@ class DetailsFragment : Fragment() {
         binding.viewModel = detailsViewModel
         binding.rvSimilarMovies.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
         binding.rvSimilarMovies.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        binding.rvTrailers.adapter = VideoAdapter(emptyList(), context!!)
+        binding.rvTrailers.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.lifecycleOwner = this
 

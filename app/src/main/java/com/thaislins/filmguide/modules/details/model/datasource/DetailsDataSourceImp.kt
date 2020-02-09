@@ -3,6 +3,7 @@ package com.thaislins.filmguide.modules.details.model.datasource
 import com.thaislins.filmguide.BuildConfig.API_KEY
 import com.thaislins.filmguide.data.remote.FilmService
 import com.thaislins.filmguide.modules.details.model.Genre
+import com.thaislins.filmguide.modules.details.model.Video
 import com.thaislins.filmguide.modules.home.model.Film
 
 class DetailsDataSourceImp(private val filmService: FilmService) : DetailsDataSource {
@@ -21,8 +22,18 @@ class DetailsDataSourceImp(private val filmService: FilmService) : DetailsDataSo
         }
     }
 
-    fun getVideos() {
+    override suspend fun getVideos(movieId: Int): List<Video>? {
+        return try {
+            val response = filmService.getFilmTrailers(movieId, API_KEY, "en-US")
 
+            if (response != null) {
+                response.results
+            } else {
+                throw Exception()
+            }
+        } catch (ex: Exception) {
+            throw Exception()
+        }
     }
 
 

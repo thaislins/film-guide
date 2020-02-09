@@ -18,5 +18,9 @@
         android:id="@+id/detailsFragment"
         android:name="com.thaislins.filmguide.modules.details.view.DetailsFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_details" >
+        <action
+            android:id="@+id/toDetailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 </navigation>

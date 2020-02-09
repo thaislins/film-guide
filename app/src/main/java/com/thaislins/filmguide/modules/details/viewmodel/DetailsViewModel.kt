@@ -1,10 +1,9 @@
 package com.thaislins.filmguide.modules.details.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thaislins.filmguide.modules.details.model.Genre
+import com.thaislins.filmguide.modules.details.model.Video
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
 import com.thaislins.filmguide.modules.home.model.Film
 import kotlinx.coroutines.launch
@@ -17,11 +16,12 @@ import java.util.*
 class DetailsViewModel : ViewModel(), KoinComponent {
 
     val detailsRepository: DetailsRepository by inject()
+    val trailers = MutableLiveData<List<Video>>().apply { value = null }
+    val similarFilms = MutableLiveData<List<Film>>().apply { value = null }
     var description = MutableLiveData<String>()
     var year = MutableLiveData<String>()
     var genres = MutableLiveData<String>()
     var title = MutableLiveData<String>()
-    val similarFilms = MutableLiveData<List<Film>>().apply { value = null }
 
     fun getFilmDetails(film: Film?) {
         formatReleaseDate(film?.year)
@@ -32,6 +32,7 @@ class DetailsViewModel : ViewModel(), KoinComponent {
             try {
                 film?.id?.let { similarFilms.postValue(detailsRepository.getSimilarFilms(it)) }
                 film?.genreIds?.let { getGenreList(it) }
+                film?.id?.let { getTrailers(it) }
             } catch (ex: Exception) {
 
             }
@@ -42,6 +43,12 @@ class DetailsViewModel : ViewModel(), KoinComponent {
         val allGenres = detailsRepository.getGenres()
         val listNames = allGenres.filter { it.id in genreIds }.map { it.name }
         genres.value = listNames.joinToString(" | ")
+    }
+
+    private suspend fun getTrailers(movieId: Int) {
+        val allVideos = detailsRepository.getVideos(movieId)
+        val listTrailers = allVideos?.filter { it.name.contains("Trailer") }
+        trailers.postValue(listTrailers)
     }
 
     private fun formatReleaseDate(value: String?) {

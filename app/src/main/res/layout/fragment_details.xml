@@ -135,6 +135,18 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Title"
                     android:textColor="@android:color/white" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTrailers"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:orientation="horizontal"
+                    app:items="@{viewModel.trailers}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnPopularFilms"
+                    tools:listitem="@layout/item_film" />
+
                 <TextView
                     android:id="@+id/tvSimilarMovies"
                     android:layout_width="wrap_content"

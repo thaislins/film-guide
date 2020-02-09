@@ -53,3 +53,9 @@ Qapp/src/main/java/com/thaislins/filmguide/modules/home/viewmodel/HomeViewModel.
 Papp/src/main/java/com/thaislins/filmguide/modules/details/model/GenreResponse.kt,a/d/ad27b85ae89ea22f34143c70e7e4bbfbe1627723
 x
 Happ/src/main/java/com/thaislins/filmguide/modules/details/model/Genre.kt,f/9/f9a9687b79a309a21fa162ae24ed423162a0bc8a
+x
+Happ/src/main/java/com/thaislins/filmguide/modules/details/model/Video.kt,4/6/460ffca335dd5a968410ff4e7020e29b71398b4a
+€
+Papp/src/main/java/com/thaislins/filmguide/modules/details/model/VideoResponse.kt,d/d/dd8b3714277da5ef863117bfd2cba214336a10d3
+†
+Vapp/src/main/java/com/thaislins/filmguide/modules/details/view/adapter/VideoAdapter.kt,0/0/00b39221eb7ab474c13c7e61a4216a4caed4e602
