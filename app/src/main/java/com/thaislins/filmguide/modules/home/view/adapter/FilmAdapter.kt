@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -45,6 +46,15 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
                 .load(POSTER_URL + films[position]?.posterPath).apply(options)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
         }
+
+        if (films[position]?.isWatched!!)
+            holder.filmImage?.setColorFilter(
+            ContextCompat.getColor(
+                context,
+                R.color.tint
+            )
+        )
+
         setAnimation(holder.itemView, position)
     }
 

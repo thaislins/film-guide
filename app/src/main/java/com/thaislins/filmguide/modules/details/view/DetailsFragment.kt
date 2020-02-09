@@ -46,9 +46,23 @@ class DetailsFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar!!.hide()
         film = arguments?.getParcelable(resources.getString(R.string.film_item_key))
         detailsViewModel.getFilmDetails(film)
+        setWatchStatus()
         ivMoviePoster.let {
             Glide.with(context!!)
                 .load(BACKDROP_URL + film?.backdropPath).into(it)
+        }
+    }
+
+    private fun setWatchStatus() {
+
+        btnSetWatched.setOnClickListener {
+            if (film?.isWatched!!) {
+                film?.isWatched = false
+                btnSetWatched.setImageDrawable(resources.getDrawable(R.drawable.ic_not_watched))
+            } else {
+                film?.isWatched = true
+                btnSetWatched.setImageDrawable(resources.getDrawable(R.drawable.ic_watched))
+            }
         }
     }
 }

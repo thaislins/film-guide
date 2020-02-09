@@ -22,4 +22,5 @@ class Film : Parcelable {
     val video: String = ""
     @JsonProperty("genre_ids")
     val genreIds: List<Int>? = null
+    var isWatched = false
 }

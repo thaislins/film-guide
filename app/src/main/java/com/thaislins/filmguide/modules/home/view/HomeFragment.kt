@@ -5,25 +5,25 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.MovieType
 import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
 import com.thaislins.filmguide.modules.home.view.adapter.ImagePagerAdapter
 import com.thaislins.filmguide.modules.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
-import org.koin.android.ext.android.inject
 import java.util.*
-
 
 class HomeFragment : Fragment() {
 
-    private val homeViewModel: HomeViewModel by inject()
     private var timer: Timer = Timer()
     private lateinit var binding: FragmentHomeBinding
+    private val homeViewModel: HomeViewModel by lazy {
+        ViewModelProvider(this).get(HomeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +34,6 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = homeViewModel
         binding.lifecycleOwner = this
-        setAdapters()
 
         return binding.root
     }
@@ -51,22 +50,20 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar!!.show()
-        startView()
+        setAdapters()
+        load()
         setPullToRefresh()
     }
 
     fun setPullToRefresh() {
         swipeRefresh.setOnRefreshListener(OnRefreshListener {
-            startView()
+            load()
             swipeRefresh.setRefreshing(false)
         })
     }
 
-    private fun startView() {
-        binding.viewModel?.loadFilms(MovieType.TRENDING.ordinal)
-        binding.viewModel?.loadFilms(MovieType.POPULAR.ordinal)
-        binding.viewModel?.loadFilms(MovieType.NOWPLAYING.ordinal)
-        binding.viewModel?.loadFilms(MovieType.TOPRATED.ordinal)
+    private fun load() {
+        homeViewModel.loadAllFilms()
         observeTrendingFilms()
     }
 

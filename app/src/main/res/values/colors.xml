@@ -5,4 +5,5 @@
     <color name="colorAccent">#6739b8</color>
     <color name="bunker">#091017</color>
     <color name="nevada">#AEB0B4</color>
+    <color name="tint">#6F000000</color>
 </resources>

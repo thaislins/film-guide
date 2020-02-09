@@ -18,6 +18,7 @@ class DetailsViewModel : ViewModel(), KoinComponent {
     val detailsRepository: DetailsRepository by inject()
     val trailers = MutableLiveData<List<Video>>().apply { value = null }
     val similarFilms = MutableLiveData<List<Film>>().apply { value = null }
+    val isWatched = MutableLiveData<Boolean>()
     var description = MutableLiveData<String>()
     var year = MutableLiveData<String>()
     var genres = MutableLiveData<String>()
@@ -27,6 +28,7 @@ class DetailsViewModel : ViewModel(), KoinComponent {
         formatReleaseDate(film?.year)
         title.value = film?.title
         description.value = film?.overview
+        isWatched.value = film?.isWatched
 
         viewModelScope.launch {
             try {

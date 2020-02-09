@@ -21,6 +21,22 @@ class HomeViewModel : ViewModel(), KoinComponent {
     val popularFilms = MutableLiveData<List<Film>>().apply { value = null }
     val nowPlaying = MutableLiveData<List<Film>>().apply { value = null }
     val topRated = MutableLiveData<List<Film>>().apply { value = null }
+    var filmsLoaded = MutableLiveData<Boolean>().apply { value = false }
+
+    init {
+        if (!filmsLoaded.value!!) {
+            loadAllFilms()
+        } else {
+            trendingFilms.value = trendingFilms.value
+        }
+    }
+
+    fun loadAllFilms() {
+        loadFilms(MovieType.TRENDING.ordinal)
+        loadFilms(MovieType.POPULAR.ordinal)
+        loadFilms(MovieType.NOWPLAYING.ordinal)
+        loadFilms(MovieType.TOPRATED.ordinal)
+    }
 
     fun loadFilms(movieType: Int) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,6 +47,7 @@ class HomeViewModel : ViewModel(), KoinComponent {
                     MovieType.NOWPLAYING.ordinal -> nowPlaying.postValue(repository.loadFilms(movieType))
                     else -> topRated.postValue(repository.loadFilms(movieType))
                 }
+                filmsLoaded.postValue(true)
             } catch (ex: Exception) {
             }
         }
