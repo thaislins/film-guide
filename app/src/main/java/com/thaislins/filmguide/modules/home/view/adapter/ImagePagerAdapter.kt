@@ -36,7 +36,7 @@ class ImagePagerAdapter(private val context: Context, var trendingFilms: List<Fi
         ivFilm.let {
             Glide.with(context)
                 .load(BACKDROP_URL + trendingFilms[position].backdropPath)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(it)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
         }
         container.addView(itemView)
 

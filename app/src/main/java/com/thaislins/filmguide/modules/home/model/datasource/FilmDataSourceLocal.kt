@@ -9,7 +9,7 @@ class FilmDataSourceLocal(private val dao: FilmDao) : FilmDataSource {
         return dao.getFilmsOfType(movieType)
     }
 
-    override suspend fun save(film: Film) {
+    override suspend fun save(film: Film, movieType: Int) {
         dao.insertFilm(film)
     }
 }

@@ -3,7 +3,6 @@ package com.thaislins.filmguide.modules.home.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.thaislins.filmguide.core.isNetworkConnected
 import com.thaislins.filmguide.data.local.FilmDao
 import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.home.model.Film
@@ -52,25 +51,35 @@ class HomeViewModel : ViewModel(), KoinComponent {
             try {
                 when (movieType) {
                     MovieType.TRENDING.ordinal -> trendingFilms.postValue(
-                        repository.loadFilms(
-                            movieType
+                        sortList(
+                            movieType,
+                            repository.loadFilms(movieType)
                         )
                     )
                     MovieType.POPULAR.ordinal -> popularFilms.postValue(
-                        repository.loadFilms(
-                            movieType
+                        sortList(
+                            movieType,
+                            repository.loadFilms(movieType)
                         )
                     )
                     MovieType.NOWPLAYING.ordinal -> nowPlaying.postValue(
-                        repository.loadFilms(
-                            movieType
+                        sortList(
+                            movieType,
+                            repository.loadFilms(movieType)
                         )
                     )
-                    else -> topRated.postValue(repository.loadFilms(movieType))
+                    else -> topRated.postValue(sortList(movieType, repository.loadFilms(movieType)))
                 }
                 filmsLoaded.postValue(true)
             } catch (ex: Exception) {
             }
         }
+    }
+
+    fun sortList(movieType: Int, list: List<Film>?): List<Film>? {
+        val sortedList =
+            if (movieType != MovieType.TOPRATED.ordinal) list?.sortedWith(compareByDescending({ it.popularity }))
+            else list?.sortedWith(compareByDescending { it.voteAverage * 100 })
+        return sortedList
     }
 }

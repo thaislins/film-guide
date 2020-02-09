@@ -21,7 +21,7 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
          }
      }*/
 
-    override suspend fun loadFilms(movieType: Int): List<Film> {
+    override suspend fun loadFilms(movieType: Int): List<Film>? {
         return try {
             response = when (movieType) {
                 MovieType.POPULAR.ordinal -> filmService.getPopularFilms(API_KEY, lang, page)
@@ -40,7 +40,7 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
         }
     }
 
-    override suspend fun save(film: Film) {
+    override suspend fun save(film: Film, movieType: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

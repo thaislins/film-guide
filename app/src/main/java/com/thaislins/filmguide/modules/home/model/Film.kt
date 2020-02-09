@@ -12,9 +12,9 @@ enum class MovieType { TRENDING, POPULAR, TOPRATED, NOWPLAYING }
 
 @Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity
+@Entity(primaryKeys= [ "id", "type" ] )
 data class Film(
-    @PrimaryKey var id: Int,
+    var id: Int,
     var title: String,
     var overview: String,
     @get:JsonProperty("poster_path") var posterPath: String,
@@ -22,8 +22,10 @@ data class Film(
     @get:JsonProperty("release_date") var year: String,
     var video: String,
     @Ignore @get:JsonProperty("genre_ids") var genreIds: List<Int>?,
+    var popularity: Int,
+    @get:JsonProperty("vote_average") var voteAverage: Float,
     var isWatched: Boolean,
-    var filter: Int
+    var type: Int
 ) : Parcelable {
-    constructor() : this(0, "", "", "", "", "", "", null, false, -1)
+    constructor() : this(0, "", "", "", "", "", "", null, 0, 0f, false, 0)
 }

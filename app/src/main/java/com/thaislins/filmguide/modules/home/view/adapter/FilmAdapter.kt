@@ -44,7 +44,7 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         holder.filmImage?.let {
             Glide.with(context)
                 .load(POSTER_URL + films[position]?.posterPath).apply(options)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE).into(it)
+                .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
         }
 
         if (films[position]?.isWatched!!)
@@ -98,7 +98,7 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         }
     }
 
-    private fun onItemClick(v: View?, holder: RecyclerView.ViewHolder) {
+    private fun onItemClick(holder: RecyclerView.ViewHolder) {
         val pos = holder.adapterPosition
         if (pos == RecyclerView.NO_POSITION) return
 
@@ -124,7 +124,7 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         }
 
         override fun onClick(v: View?) {
-            onItemClick(v, this)
+            onItemClick(this)
         }
     }
 }
