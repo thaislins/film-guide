@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.model.MovieType
@@ -40,6 +41,18 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity).supportActionBar!!.show()
+        startView()
+        setPullToRefresh()
+    }
+
+    fun setPullToRefresh() {
+        swipeRefresh.setOnRefreshListener(OnRefreshListener {
+            startView()
+            swipeRefresh.setRefreshing(false)
+        })
+    }
+
+    private fun startView() {
         binding.viewModel?.loadFilms(MovieType.TRENDING.ordinal)
         binding.viewModel?.loadFilms(MovieType.POPULAR.ordinal)
         binding.viewModel?.loadFilms(MovieType.NOWPLAYING.ordinal)
