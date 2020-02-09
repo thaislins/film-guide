@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
-import com.thaislins.filmguide.BuildConfig.POSTER_URL
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AdapterContract
+import com.thaislins.filmguide.core.POSTER_URL
 import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import java.util.*

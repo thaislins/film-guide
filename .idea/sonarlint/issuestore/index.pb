@@ -59,3 +59,5 @@ Happ/src/main/java/com/thaislins/filmguide/modules/details/model/Video.kt,4/6/4
 Papp/src/main/java/com/thaislins/filmguide/modules/details/model/VideoResponse.kt,d/d/dd8b3714277da5ef863117bfd2cba214336a10d3
 †
 Vapp/src/main/java/com/thaislins/filmguide/modules/details/view/adapter/VideoAdapter.kt,0/0/00b39221eb7ab474c13c7e61a4216a4caed4e602
+k
+;app/src/main/java/com/thaislins/filmguide/core/Constants.kt,9/5/9593f6a307e9a5ba73c0ba7936fc5a0bef6d288c

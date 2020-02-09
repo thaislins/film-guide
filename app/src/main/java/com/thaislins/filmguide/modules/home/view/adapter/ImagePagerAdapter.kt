@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.thaislins.filmguide.BuildConfig
 import com.thaislins.filmguide.R
+import com.thaislins.filmguide.core.BACKDROP_URL
 import com.thaislins.filmguide.modules.home.model.Film
 
 class ImagePagerAdapter(private val context: Context, var trendingFilms: List<Film>) :
@@ -33,7 +34,7 @@ class ImagePagerAdapter(private val context: Context, var trendingFilms: List<Fi
         val ivFilm: ImageView = itemView.findViewById(R.id.ivFilm) as ImageView
         ivFilm.let {
             Glide.with(context)
-                .load(BuildConfig.BACKDROP_URL + trendingFilms[position].backdropPath)
+                .load(BACKDROP_URL + trendingFilms[position].backdropPath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).into(it)
         }
         container.addView(itemView)

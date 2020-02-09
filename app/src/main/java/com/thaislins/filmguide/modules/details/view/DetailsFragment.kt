@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.thaislins.filmguide.BuildConfig
 import com.thaislins.filmguide.R
+import com.thaislins.filmguide.core.BACKDROP_URL
 import com.thaislins.filmguide.databinding.FragmentDetailsBinding
 import com.thaislins.filmguide.modules.details.view.adapter.VideoAdapter
 import com.thaislins.filmguide.modules.details.viewmodel.DetailsViewModel
@@ -49,16 +49,24 @@ class DetailsFragment : Fragment() {
         detailsViewModel.getFilmDetails(film)
         ivMoviePoster.let {
             Glide.with(context!!)
-                .load(BuildConfig.BACKDROP_URL + film?.backdropPath).into(it)
+                .load(BACKDROP_URL + film?.backdropPath).into(it)
         }
 
-        observeSimilarFilms()
+        addObservers()
     }
 
-    private fun observeSimilarFilms() {
+    private fun addObservers() {
         detailsViewModel.similarFilms.observe(viewLifecycleOwner, Observer {
             if (!it.isNullOrEmpty()) {
                 tvSimilarMovies.visibility = View.VISIBLE
+                rvSimilarMovies.visibility = View.VISIBLE
+            }
+        })
+
+        detailsViewModel.trailers.observe(viewLifecycleOwner, Observer {
+            if (!it.isNullOrEmpty()) {
+                tvTrailers.visibility = View.VISIBLE
+                rvTrailers.visibility = View.VISIBLE
             }
         })
     }

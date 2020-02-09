@@ -4,8 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AdapterContract
+import com.thaislins.filmguide.core.YOUTUBE_THUMBNAIL_URL
 import com.thaislins.filmguide.databinding.ItemTrailerBinding
 import com.thaislins.filmguide.modules.details.model.Video
 
@@ -27,11 +31,24 @@ class VideoAdapter(private var trailers: List<Video?>, private var context: Cont
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         trailers[position]?.let { holder.bind(it) }
+
+        holder.trailerThumnail?.let {
+            Glide.with(context).load(getThumnailUrl(trailers[position])).into(it)
+        }
+    }
+
+    private fun getThumnailUrl(trailer: Video?): String {
+        if (trailer?.site == "YouTube") {
+            return String.format(YOUTUBE_THUMBNAIL_URL, trailer.key);
+        } else {
+            return ""
+        }
     }
 
     override fun set(list: List<Any>?) {
         if (!list.isNullOrEmpty()) {
             trailers = (list as List<Video?>)
+            notifyDataSetChanged()
         }
     }
 
@@ -41,6 +58,8 @@ class VideoAdapter(private var trailers: List<Video?>, private var context: Cont
 
     inner class ViewHolder(private val binding: ItemTrailerBinding) :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+
+        internal val trailerThumnail: ImageView? = itemView.findViewById(R.id.ivTrailer)
 
         fun bind(trailer: Video) {
             binding.trailer = trailer
