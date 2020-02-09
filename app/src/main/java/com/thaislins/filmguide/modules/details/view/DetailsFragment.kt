@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.thaislins.filmguide.R
@@ -51,23 +50,5 @@ class DetailsFragment : Fragment() {
             Glide.with(context!!)
                 .load(BACKDROP_URL + film?.backdropPath).into(it)
         }
-
-        addObservers()
-    }
-
-    private fun addObservers() {
-        detailsViewModel.similarFilms.observe(viewLifecycleOwner, Observer {
-            if (!it.isNullOrEmpty()) {
-                tvSimilarMovies.visibility = View.VISIBLE
-                rvSimilarMovies.visibility = View.VISIBLE
-            }
-        })
-
-        detailsViewModel.trailers.observe(viewLifecycleOwner, Observer {
-            if (!it.isNullOrEmpty()) {
-                tvTrailers.visibility = View.VISIBLE
-                rvTrailers.visibility = View.VISIBLE
-            }
-        })
     }
 }
