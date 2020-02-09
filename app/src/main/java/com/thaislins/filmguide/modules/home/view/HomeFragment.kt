@@ -1,14 +1,13 @@
 package com.thaislins.filmguide.modules.home.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
+import com.thaislins.filmguide.R
 import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.model.MovieType
@@ -18,6 +17,7 @@ import com.thaislins.filmguide.modules.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.ext.android.inject
 import java.util.*
+
 
 class HomeFragment : Fragment() {
 
@@ -30,12 +30,22 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true)
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = homeViewModel
         binding.lifecycleOwner = this
         setAdapters()
 
         return binding.root
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        menu.findItem(R.id.action_search).isVisible = false
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
