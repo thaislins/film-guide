@@ -29,6 +29,7 @@ class DetailsDataSourceRemote(private val filmService: FilmService?) : DetailsDa
             val response = filmService?.getFilmTrailers(movieId, API_KEY, "en-US")
 
             if (response != null) {
+                response.results?.forEach { it.movieId = response.id }
                 response.results
             } else {
                 throw Exception()
@@ -50,9 +51,5 @@ class DetailsDataSourceRemote(private val filmService: FilmService?) : DetailsDa
         } catch (ex: Exception) {
             throw Exception()
         }
-    }
-
-    override suspend fun save(film: Film) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

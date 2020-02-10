@@ -21,8 +21,4 @@ class HomeRepository(
             localDataSource.loadFilms(movieFilter)
         }
     }
-
-    override suspend fun save(film: Film) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

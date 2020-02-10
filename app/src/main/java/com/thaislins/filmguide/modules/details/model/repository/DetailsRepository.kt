@@ -17,7 +17,7 @@ class DetailsRepository(
         return if (isNetworkConnected) {
             val list = remoteDataSource.getSimilarFilms(movieId)
             list.forEach { it.filter = MovieFilter.SIMILAR.ordinal }
-            list.forEach { localDataSource.save(it) }
+            list.forEach { localDataSource.saveFilm(it) }
             list
         } else {
             localDataSource.getSimilarFilms(movieId)
@@ -29,10 +29,12 @@ class DetailsRepository(
     }
 
     override suspend fun getVideos(movieId: Int): List<Video>? {
-        return remoteDataSource.getVideos(movieId)
-    }
-
-    override suspend fun save(film: Film) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return if (isNetworkConnected) {
+            val list = remoteDataSource.getVideos(movieId)
+            list?.forEach { localDataSource.saveVideo(it) }
+            list
+        } else {
+            localDataSource.getVideos(movieId)
+        }
     }
 }

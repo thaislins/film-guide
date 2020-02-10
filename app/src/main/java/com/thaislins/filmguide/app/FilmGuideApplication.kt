@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.thaislins.filmguide.core.AppDatabase
 import com.thaislins.filmguide.data.local.FilmDao
+import com.thaislins.filmguide.data.local.VideoDao
 import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceLocal
 import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceRemote
@@ -21,6 +22,7 @@ import org.koin.dsl.module
 class FilmGuideApplication : Application() {
 
     private val filmDao: FilmDao by inject()
+    private val videoDao: VideoDao by inject()
     private val tmdbApi: TMDBApi? by inject()
 
     private val listofModules = module {
@@ -28,7 +30,7 @@ class FilmGuideApplication : Application() {
         single {
             DetailsRepository(
                 DetailsDataSourceRemote(tmdbApi?.getFilmService()),
-                DetailsDataSourceLocal(filmDao)
+                DetailsDataSourceLocal(filmDao, videoDao)
             )
         }
         single {
@@ -41,6 +43,7 @@ class FilmGuideApplication : Application() {
         // Database
         single { Room.databaseBuilder(get(), AppDatabase::class.java, "film_guide_db").build() }
         single { get<AppDatabase>().filmDao() }
+        single { get<AppDatabase>().videoDao() }
     }
 
     companion object {
