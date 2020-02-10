@@ -3,7 +3,7 @@ package com.thaislins.filmguide.modules.home.model.datasource
 import com.thaislins.filmguide.BuildConfig.API_KEY
 import com.thaislins.filmguide.data.remote.FilmService
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.MovieType
+import com.thaislins.filmguide.modules.home.model.MovieFilter
 import com.thaislins.filmguide.modules.home.model.Response
 
 class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {
@@ -21,12 +21,12 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
          }
      }*/
 
-    override suspend fun loadFilms(movieType: Int): List<Film>? {
+    override suspend fun loadFilms(movieFilter: Int): List<Film>? {
         return try {
-            response = when (movieType) {
-                MovieType.POPULAR.ordinal -> filmService.getPopularFilms(API_KEY, lang, page)
-                MovieType.TRENDING.ordinal -> filmService.getTrendingFilms(API_KEY)
-                MovieType.NOWPLAYING.ordinal -> filmService.getNowPlaying(API_KEY, lang, page)
+            response = when (movieFilter) {
+                MovieFilter.POPULAR.ordinal -> filmService.getPopularFilms(API_KEY, lang, page)
+                MovieFilter.TRENDING.ordinal -> filmService.getTrendingFilms(API_KEY)
+                MovieFilter.NOWPLAYING.ordinal -> filmService.getNowPlaying(API_KEY, lang, page)
                 else -> filmService.getTopRated(API_KEY, lang, page)
             }
 
@@ -40,7 +40,7 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
         }
     }
 
-    override suspend fun save(film: Film, movieType: Int) {
+    override suspend fun save(film: Film, movieFilter: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

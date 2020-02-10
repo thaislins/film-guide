@@ -3,16 +3,15 @@ package com.thaislins.filmguide.modules.home.model
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.android.parcel.Parcelize
 
-enum class MovieType { TRENDING, POPULAR, TOPRATED, NOWPLAYING }
+enum class MovieFilter { TRENDING, POPULAR, TOPRATED, NOWPLAYING }
 
 @Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Entity(primaryKeys= [ "id", "type" ] )
+@Entity(primaryKeys = ["id", "filter"])
 data class Film(
     var id: Int,
     var title: String,
@@ -25,7 +24,7 @@ data class Film(
     var popularity: Int,
     @get:JsonProperty("vote_average") var voteAverage: Float,
     var isWatched: Boolean,
-    var type: Int
+    var filter: Int
 ) : Parcelable {
     constructor() : this(0, "", "", "", "", "", "", null, 0, 0f, false, 0)
 }

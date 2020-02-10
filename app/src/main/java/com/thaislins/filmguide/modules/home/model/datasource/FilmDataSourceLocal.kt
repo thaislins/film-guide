@@ -5,11 +5,11 @@ import com.thaislins.filmguide.modules.home.model.Film
 
 class FilmDataSourceLocal(private val dao: FilmDao) : FilmDataSource {
 
-    override suspend fun loadFilms(movieType: Int): List<Film>? {
-        return dao.getFilmsOfType(movieType)
+    override suspend fun loadFilms(movieFilter: Int): List<Film>? {
+        return dao.getFilmsOfType(movieFilter)
     }
 
-    override suspend fun save(film: Film, movieType: Int) {
+    override suspend fun save(film: Film, movieFilter: Int) {
         dao.insertFilm(film)
     }
 }

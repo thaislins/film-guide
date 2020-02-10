@@ -61,3 +61,13 @@ Papp/src/main/java/com/thaislins/filmguide/modules/details/model/VideoResponse.k
 Vapp/src/main/java/com/thaislins/filmguide/modules/details/view/adapter/VideoAdapter.kt,0/0/00b39221eb7ab474c13c7e61a4216a4caed4e602
 k
 ;app/src/main/java/com/thaislins/filmguide/core/Constants.kt,9/5/9593f6a307e9a5ba73c0ba7936fc5a0bef6d288c
+…
+Uapp/build/generated/source/buildConfig/debug/com/thaislins/filmguide/BuildConfig.java,a/f/af8126804dc742671bbf46f96c127934f1335b1d
+n
+>app/src/main/java/com/thaislins/filmguide/core/Connectivity.kt,5/a/5afdb835a850685c1cb515f77f552d0195054651
+m
+=app/src/main/java/com/thaislins/filmguide/core/AppDatabase.kt,c/2/c2a23a52fdd74a10bbb3738edbba34299ce472d3
+o
+?app/src/main/java/com/thaislins/filmguide/data/local/FilmDao.kt,5/6/560b74364cff10e0e26291fb77d9cf079b960446
+Ž
+^app/src/main/java/com/thaislins/filmguide/modules/home/model/datasource/FilmDataSourceLocal.kt,8/8/88ac3e6b164632172b7c0f461eada397460a5242

@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.data.local.FilmDao
 import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.MovieType
+import com.thaislins.filmguide.modules.home.model.MovieFilter
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
 import com.thaislins.filmguide.modules.home.model.repository.HomeRepository
@@ -40,35 +40,40 @@ class HomeViewModel : ViewModel(), KoinComponent {
     }
 
     fun loadAllFilms() {
-        loadFilms(MovieType.TRENDING.ordinal)
-        loadFilms(MovieType.POPULAR.ordinal)
-        loadFilms(MovieType.NOWPLAYING.ordinal)
-        loadFilms(MovieType.TOPRATED.ordinal)
+        loadFilms(MovieFilter.TRENDING.ordinal)
+        loadFilms(MovieFilter.POPULAR.ordinal)
+        loadFilms(MovieFilter.NOWPLAYING.ordinal)
+        loadFilms(MovieFilter.TOPRATED.ordinal)
     }
 
-    fun loadFilms(movieType: Int) {
+    fun loadFilms(movieFilter: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                when (movieType) {
-                    MovieType.TRENDING.ordinal -> trendingFilms.postValue(
+                when (movieFilter) {
+                    MovieFilter.TRENDING.ordinal -> trendingFilms.postValue(
                         sortList(
-                            movieType,
-                            repository.loadFilms(movieType)
+                            movieFilter,
+                            repository.loadFilms(movieFilter)
                         )
                     )
-                    MovieType.POPULAR.ordinal -> popularFilms.postValue(
+                    MovieFilter.POPULAR.ordinal -> popularFilms.postValue(
                         sortList(
-                            movieType,
-                            repository.loadFilms(movieType)
+                            movieFilter,
+                            repository.loadFilms(movieFilter)
                         )
                     )
-                    MovieType.NOWPLAYING.ordinal -> nowPlaying.postValue(
+                    MovieFilter.NOWPLAYING.ordinal -> nowPlaying.postValue(
                         sortList(
-                            movieType,
-                            repository.loadFilms(movieType)
+                            movieFilter,
+                            repository.loadFilms(movieFilter)
                         )
                     )
-                    else -> topRated.postValue(sortList(movieType, repository.loadFilms(movieType)))
+                    else -> topRated.postValue(
+                        sortList(
+                            movieFilter,
+                            repository.loadFilms(movieFilter)
+                        )
+                    )
                 }
                 filmsLoaded.postValue(true)
             } catch (ex: Exception) {
@@ -76,9 +81,9 @@ class HomeViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    fun sortList(movieType: Int, list: List<Film>?): List<Film>? {
+    fun sortList(movieFilter: Int, list: List<Film>?): List<Film>? {
         val sortedList =
-            if (movieType != MovieType.TOPRATED.ordinal) list?.sortedWith(compareByDescending({ it.popularity }))
+            if (movieFilter != MovieFilter.TOPRATED.ordinal) list?.sortedWith(compareByDescending({ it.popularity }))
             else list?.sortedWith(compareByDescending { it.voteAverage * 100 })
         return sortedList
     }
