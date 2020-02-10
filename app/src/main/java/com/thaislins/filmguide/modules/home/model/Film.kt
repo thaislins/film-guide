@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 import kotlinx.android.parcel.Parcelize
 
-enum class MovieFilter { TRENDING, POPULAR, TOPRATED, NOWPLAYING }
-
 @Parcelize
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity(primaryKeys = ["id", "filter"])

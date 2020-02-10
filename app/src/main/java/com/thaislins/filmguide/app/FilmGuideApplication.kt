@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.room.Room
 import com.thaislins.filmguide.core.AppDatabase
 import com.thaislins.filmguide.data.remote.TMDBApi
-import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceImp
+import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceRemote
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -19,7 +19,7 @@ class FilmGuideApplication : Application() {
 
     private val listofModules = module {
         single { TMDBApi() }
-        single { DetailsRepository(DetailsDataSourceImp(tmdbApi.getFilmService())) }
+        single { DetailsRepository(DetailsDataSourceRemote(tmdbApi.getFilmService())) }
 
         // Database
         single { Room.databaseBuilder(get(), AppDatabase::class.java, "film_guide_db").build() }

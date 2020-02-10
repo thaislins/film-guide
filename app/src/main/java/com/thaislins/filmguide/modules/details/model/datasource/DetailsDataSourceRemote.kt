@@ -6,7 +6,7 @@ import com.thaislins.filmguide.modules.details.model.Genre
 import com.thaislins.filmguide.modules.details.model.Video
 import com.thaislins.filmguide.modules.home.model.Film
 
-class DetailsDataSourceImp(private val filmService: FilmService) : DetailsDataSource {
+class DetailsDataSourceRemote(private val filmService: FilmService) : DetailsDataSource {
 
     override suspend fun getGenres(): List<Genre> {
         return try {

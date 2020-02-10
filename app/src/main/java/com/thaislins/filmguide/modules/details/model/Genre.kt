@@ -1,6 +1,8 @@
 package com.thaislins.filmguide.modules.details.model
 
-class Genre {
-    var id: Int = 0
-    var name: String = ""
+data class Genre(
+    var id: Int,
+    var name: String
+) {
+    constructor() : this(0, "")
 }

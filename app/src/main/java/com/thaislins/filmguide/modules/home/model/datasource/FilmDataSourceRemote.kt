@@ -1,9 +1,9 @@
 package com.thaislins.filmguide.modules.home.model.datasource
 
 import com.thaislins.filmguide.BuildConfig.API_KEY
+import com.thaislins.filmguide.core.MovieFilter
 import com.thaislins.filmguide.data.remote.FilmService
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.MovieFilter
 import com.thaislins.filmguide.modules.home.model.Response
 
 class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {

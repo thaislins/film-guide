@@ -1,5 +1,7 @@
 package com.thaislins.filmguide.modules.details.model
 
-class GenreResponse {
-    val genres: List<Genre>? = null
+data class GenreResponse(
+    val genres: List<Genre>?
+) {
+    constructor() : this(null)
 }

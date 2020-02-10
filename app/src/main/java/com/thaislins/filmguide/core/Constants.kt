@@ -6,3 +6,5 @@ const val POSTER_URL = "https://image.tmdb.org/t/p/original/"
 const val BACKDROP_URL = "https://image.tmdb.org/t/p/original/"
 
 var isNetworkConnected = false
+
+enum class MovieFilter { TRENDING, POPULAR, TOPRATED, NOWPLAYING, SIMILAR }

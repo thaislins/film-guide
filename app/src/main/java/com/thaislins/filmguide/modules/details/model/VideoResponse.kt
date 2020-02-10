@@ -1,6 +1,8 @@
 package com.thaislins.filmguide.modules.details.model
 
-class VideoResponse {
-    var id: String = ""
-    var results: List<Video>? = null
+data class VideoResponse(
+    var id: String,
+    var results: List<Video>?
+) {
+    constructor() : this("", null)
 }
