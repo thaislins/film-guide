@@ -5,12 +5,14 @@ import com.thaislins.filmguide.data.remote.FilmService
 import com.thaislins.filmguide.modules.details.model.Genre
 import com.thaislins.filmguide.modules.details.model.Video
 import com.thaislins.filmguide.modules.home.model.Film
+import org.koin.core.KoinComponent
 
-class DetailsDataSourceRemote(private val filmService: FilmService) : DetailsDataSource {
+class DetailsDataSourceRemote(private val filmService: FilmService?) : DetailsDataSource,
+    KoinComponent {
 
     override suspend fun getGenres(): List<Genre> {
         return try {
-            val response = filmService.getGenreList(API_KEY, "en-US")
+            val response = filmService?.getGenreList(API_KEY, "en-US")
 
             if (response != null) {
                 response.genres!!
@@ -24,7 +26,7 @@ class DetailsDataSourceRemote(private val filmService: FilmService) : DetailsDat
 
     override suspend fun getVideos(movieId: Int): List<Video>? {
         return try {
-            val response = filmService.getFilmTrailers(movieId, API_KEY, "en-US")
+            val response = filmService?.getFilmTrailers(movieId, API_KEY, "en-US")
 
             if (response != null) {
                 response.results
@@ -36,10 +38,9 @@ class DetailsDataSourceRemote(private val filmService: FilmService) : DetailsDat
         }
     }
 
-
     override suspend fun getSimilarFilms(movieId: Int): List<Film> {
         return try {
-            val response = filmService.getSimilarFilms(movieId, API_KEY, "en-US", 1)
+            val response = filmService?.getSimilarFilms(movieId, API_KEY, "en-US", 1)
 
             if (response != null) {
                 response.results!!
@@ -49,5 +50,9 @@ class DetailsDataSourceRemote(private val filmService: FilmService) : DetailsDat
         } catch (ex: Exception) {
             throw Exception()
         }
+    }
+
+    override suspend fun save(film: Film) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

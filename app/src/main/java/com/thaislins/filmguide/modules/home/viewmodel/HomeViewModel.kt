@@ -4,11 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.core.MovieFilter
-import com.thaislins.filmguide.data.local.FilmDao
-import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
-import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
 import com.thaislins.filmguide.modules.home.model.repository.HomeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,14 +13,7 @@ import org.koin.core.inject
 
 class HomeViewModel : ViewModel(), KoinComponent {
 
-    private val tmdbApi: TMDBApi? by inject()
-    private val filmDao: FilmDao by inject()
-    private val repository =
-        HomeRepository(
-            FilmDataSourceRemote(tmdbApi?.getFilmService()!!),
-            FilmDataSourceLocal(filmDao)
-        )
-
+    private val repository: HomeRepository by inject()
     val trendingFilms = MutableLiveData<List<Film>>().apply { value = null }
     val popularFilms = MutableLiveData<List<Film>>().apply { value = null }
     val nowPlaying = MutableLiveData<List<Film>>().apply { value = null }

@@ -17,4 +17,7 @@ abstract class FilmDao {
 
     @Query("SELECT * FROM film WHERE filter=:movieType")
     abstract fun getFilmsOfType(movieType: Int): List<Film>
+
+    @Query("SELECT * FROM film WHERE id=:movieId")
+    abstract fun getFilm(movieId: Int): Film
 }

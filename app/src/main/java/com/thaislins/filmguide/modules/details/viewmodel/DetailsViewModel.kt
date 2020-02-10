@@ -1,11 +1,13 @@
 package com.thaislins.filmguide.modules.details.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.modules.details.model.Video
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
 import com.thaislins.filmguide.modules.home.model.Film
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.KoinComponent
 import org.koin.core.inject
@@ -30,13 +32,13 @@ class DetailsViewModel : ViewModel(), KoinComponent {
         description.value = film?.overview
         isWatched.value = film?.isWatched
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 film?.id?.let { similarFilms.postValue(detailsRepository.getSimilarFilms(it)) }
                 film?.genreIds?.let { getGenreList(it) }
                 film?.id?.let { getTrailers(it) }
             } catch (ex: Exception) {
-
+                Log.e("", ex.toString())
             }
         }
     }
@@ -44,7 +46,7 @@ class DetailsViewModel : ViewModel(), KoinComponent {
     private suspend fun getGenreList(genreIds: List<Int>) {
         val allGenres = detailsRepository.getGenres()
         val listNames = allGenres.filter { it.id in genreIds }.map { it.name }
-        genres.value = listNames.joinToString(" | ")
+        genres.postValue(listNames.joinToString(" | "))
     }
 
     private suspend fun getTrailers(movieId: Int) {

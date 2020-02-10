@@ -15,14 +15,14 @@ class HomeRepository(
         return if (isNetworkConnected) {
             val list = remoteDataSource.loadFilms(movieFilter)
             list?.forEach { it.filter = movieFilter }
-            list?.forEach { localDataSource.save(it, movieFilter) }
+            list?.forEach { localDataSource.save(it) }
             list
         } else {
             localDataSource.loadFilms(movieFilter)
         }
     }
 
-    override suspend fun save(film: Film, movieFilter: Int) {
+    override suspend fun save(film: Film) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

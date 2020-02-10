@@ -9,4 +9,5 @@ interface DetailsDataSource {
     suspend fun getSimilarFilms(movieId: Int): List<Film>
     suspend fun getGenres(): List<Genre>
     suspend fun getVideos(movieId: Int): List<Video>?
+    suspend fun save(film: Film)
 }
