@@ -1,5 +1,6 @@
 package com.thaislins.filmguide.modules.home.model.datasource
 
+import android.util.Log
 import com.thaislins.filmguide.BuildConfig.API_KEY
 import com.thaislins.filmguide.core.MovieFilter
 import com.thaislins.filmguide.data.remote.FilmService
@@ -8,20 +9,12 @@ import com.thaislins.filmguide.modules.home.model.Response
 
 class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {
 
-    private var page: Int = 1
+    val totalPages = hashMapOf<Int, Int?>()
+    val totalResults = hashMapOf<Int, Int?>()
     private val lang = "en-US"
-    //private var hasItems = true
     private var response: Response? = null
 
-    /* override suspend fun loadAllPopularFilms(): List<Film>? {
-         return if (hasItems) {
-             loadPopularFilms()
-         } else {
-             return null
-         }
-     }*/
-
-    override suspend fun loadFilms(movieFilter: Int): List<Film>? {
+    override suspend fun loadFilms(movieFilter: Int, page: Int): List<Film>? {
         return try {
             response = when (movieFilter) {
                 MovieFilter.POPULAR.ordinal -> filmService.getPopularFilms(API_KEY, lang, page)
@@ -31,28 +24,15 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
             }
 
             if (response != null) {
+                totalPages[movieFilter] = response?.totalPages
+                totalResults[movieFilter] = response?.totalResuls
                 response?.results!!
             } else {
                 throw Exception()
             }
         } catch (ex: Exception) {
+            Log.e("EXCEPTION", ex.message.toString())
             throw Exception()
         }
     }
-
-    /*suspend fun loadPopularFilms(): List<Film> {
-        return try {
-            response = filmService.getPopularFilms(API_KEY, "en-US", page.toString())
-            //page += page
-            //hasItems = page <= response?.totalPages!!
-
-            if (response != null) {
-                response?.results!!
-            } else {
-                throw Exception()
-            }
-        } catch (ex: Exception) {
-            throw Exception()
-        }
-    }*/
 }

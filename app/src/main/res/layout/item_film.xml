@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/marginLarge"
-                android:maxWidth="220dp"
+                android:maxWidth="180dp"
                 android:maxHeight="80dp"
                 android:maxLines="4"
                 android:text="@{film.title}"

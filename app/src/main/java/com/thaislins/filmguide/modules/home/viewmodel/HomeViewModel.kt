@@ -42,25 +42,25 @@ class HomeViewModel : ViewModel(), KoinComponent {
                     MovieFilter.TRENDING.ordinal -> trendingFilms.postValue(
                         sortList(
                             movieFilter,
-                            repository.loadFilms(movieFilter)
+                            repository.loadFilms(movieFilter, 1)
                         )
                     )
                     MovieFilter.POPULAR.ordinal -> popularFilms.postValue(
                         sortList(
                             movieFilter,
-                            repository.loadFilms(movieFilter)
+                            repository.loadFilms(movieFilter, 1)
                         )
                     )
                     MovieFilter.NOWPLAYING.ordinal -> nowPlaying.postValue(
                         sortList(
                             movieFilter,
-                            repository.loadFilms(movieFilter)
+                            repository.loadFilms(movieFilter, 1)
                         )
                     )
                     else -> topRated.postValue(
                         sortList(
                             movieFilter,
-                            repository.loadFilms(movieFilter)
+                            repository.loadFilms(movieFilter, 1)
                         )
                     )
                 }

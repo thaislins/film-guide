@@ -10,6 +10,7 @@ import com.thaislins.filmguide.data.remote.TMDBApi
 import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceLocal
 import com.thaislins.filmguide.modules.details.model.datasource.DetailsDataSourceRemote
 import com.thaislins.filmguide.modules.details.model.repository.DetailsRepository
+import com.thaislins.filmguide.modules.film.model.repository.FilmRepository
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
 import com.thaislins.filmguide.modules.home.model.repository.HomeRepository
@@ -24,6 +25,8 @@ class FilmGuideApplication : Application() {
     private val filmDao: FilmDao by inject()
     private val videoDao: VideoDao by inject()
     private val tmdbApi: TMDBApi? by inject()
+    private val filmDataSourceRemote: FilmDataSourceRemote by inject()
+    private val filmDataSourceLocal: FilmDataSourceLocal by inject()
 
     private val listofModules = module {
         single { TMDBApi() }
@@ -33,14 +36,11 @@ class FilmGuideApplication : Application() {
                 DetailsDataSourceLocal(filmDao, videoDao)
             )
         }
-        single {
-            HomeRepository(
-                FilmDataSourceRemote(tmdbApi?.getFilmService()!!),
-                FilmDataSourceLocal(filmDao)
-            )
-        }
 
-        // Database
+        single { HomeRepository(filmDataSourceRemote, filmDataSourceLocal) }
+        single { FilmRepository(filmDataSourceRemote, filmDataSourceLocal) }
+        single { FilmDataSourceLocal(filmDao) }
+        single { FilmDataSourceRemote(tmdbApi?.getFilmService()!!) }
         single { Room.databaseBuilder(get(), AppDatabase::class.java, "film_guide_db").build() }
         single { get<AppDatabase>().filmDao() }
         single { get<AppDatabase>().videoDao() }

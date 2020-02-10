@@ -146,25 +146,4 @@ class HomeFragment : Fragment() {
         super.onStop()
         timer.cancel()
     }
-
-    /*private fun addOnScrollListener() {
-        var pastVisiblesItems: Int
-        var visibleItemCount: Int
-        var totalItemCount: Int
-        binding.rvFilms.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(
-                recyclerView: RecyclerView,
-                dx: Int, dy: Int
-            ) {
-                val layoutManager = recyclerView.layoutManager as GridLayoutManager
-                super.onScrolled(recyclerView, dx, dy)
-                visibleItemCount = layoutManager.getChildCount()
-                totalItemCount = layoutManager.getItemCount()
-                pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
-                if (visibleItemCount + pastVisiblesItems >= totalItemCount) {
-                    binding.viewModel?.loadFilms()
-                }
-            }
-        })
-    }*/
 }

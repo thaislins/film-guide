@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.databinding.FragmentFilmBinding
 import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
@@ -15,6 +17,8 @@ import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
 
 class FilmFragment : Fragment() {
 
+    private var loading = false
+    private var item = 0
     private val filmViewModel: FilmViewModel by lazy {
         ViewModelProvider(this).get(FilmViewModel()::class.java)
     }
@@ -42,7 +46,42 @@ class FilmFragment : Fragment() {
 
         val filmList =
             arguments?.getParcelableArrayList<Film>(resources.getString(R.string.list_film_item_key))
-        filmViewModel.films.value = filmList
+        filmViewModel.filmType.value = filmList?.get(0)?.filter
+    }
 
+    override fun onStart() {
+        super.onStart()
+        filmViewModel.loadDBFilms()
+        addOnScrollListener()
+        observeLoading()
+    }
+
+    fun observeLoading() {
+        filmViewModel.loading.observe(viewLifecycleOwner, Observer {
+            loading = it
+        })
+    }
+
+    private fun addOnScrollListener() {
+        var pastVisiblesItems: Int
+        var visibleItemCount: Int
+        var totalItemCount: Int
+        binding.rvFilms.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                val layoutManager = recyclerView.layoutManager as LinearLayoutManager
+
+                visibleItemCount = layoutManager.getChildCount();
+                totalItemCount = layoutManager.getItemCount();
+                pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+
+                if (!loading && (visibleItemCount + pastVisiblesItems) >= totalItemCount) {
+                    loading = true
+                    binding.viewModel?.loadMoreFilms()
+                    //Do pagination.. i.e. fetch new data
+                }
+
+            }
+        })
     }
 }

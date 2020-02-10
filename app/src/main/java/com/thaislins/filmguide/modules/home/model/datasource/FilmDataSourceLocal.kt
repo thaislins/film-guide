@@ -5,7 +5,7 @@ import com.thaislins.filmguide.modules.home.model.Film
 
 class FilmDataSourceLocal(private val dao: FilmDao) : FilmDataSource {
 
-    override suspend fun loadFilms(movieFilter: Int): List<Film>? {
+    override suspend fun loadFilms(movieFilter: Int, page: Int): List<Film>? {
         return dao.getFilmsOfType(movieFilter)
     }
 

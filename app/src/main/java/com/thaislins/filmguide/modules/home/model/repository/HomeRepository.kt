@@ -11,14 +11,18 @@ class HomeRepository(
     private val localDataSource: FilmDataSourceLocal
 ) : FilmDataSource {
 
-    override suspend fun loadFilms(movieFilter: Int): List<Film>? {
-        return if (isNetworkConnected) {
-            val list = remoteDataSource.loadFilms(movieFilter)
-            list?.forEach { it.filter = movieFilter }
-            list?.forEach { localDataSource.save(it) }
-            list
-        } else {
-            localDataSource.loadFilms(movieFilter)
+    override suspend fun loadFilms(movieFilter: Int, page: Int): List<Film>? {
+        try {
+            return if (isNetworkConnected) {
+                val list = remoteDataSource.loadFilms(movieFilter, page)
+                list?.forEach { it.filter = movieFilter }
+                list?.forEach { localDataSource.save(it) }
+                list
+            } else {
+                localDataSource.loadFilms(movieFilter, page)
+            }
+        } catch (ex: Exception) {
+            throw Exception()
         }
     }
 }
