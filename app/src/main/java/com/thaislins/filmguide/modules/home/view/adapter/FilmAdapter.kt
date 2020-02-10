@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,12 @@ import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import java.util.*
 
-class FilmAdapter(private var films: MutableList<Film?>, private var context: Context) :
+
+class FilmAdapter(
+    private var films: MutableList<Film?>,
+    private var context: Context,
+    private var showDetails: Boolean
+) :
     RecyclerView.Adapter<FilmAdapter.ViewHolder>(),
     AdapterContract {
 
@@ -49,12 +55,15 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
 
         if (films[position]?.isWatched!!)
             holder.filmImage?.setColorFilter(
-            ContextCompat.getColor(
-                context,
-                R.color.tint
+                ContextCompat.getColor(
+                    context,
+                    R.color.tint
+                )
             )
-        )
 
+        if (showDetails) {
+            holder.layoutDetails?.visibility = View.VISIBLE
+        }
         setAnimation(holder.itemView, position)
     }
 
@@ -117,6 +126,7 @@ class FilmAdapter(private var films: MutableList<Film?>, private var context: Co
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
 
         internal val filmImage: ImageView? = itemView.findViewById(R.id.ivFilm)
+        internal val layoutDetails: ConstraintLayout? = itemView.findViewById(R.id.layoutDetails)
         fun bind(film: Film) {
             binding.root.setOnClickListener(this)
             binding.film = film

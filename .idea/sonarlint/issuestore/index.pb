@@ -27,8 +27,6 @@ P
 _app/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSource.kt,8/b/8beca39d6a20ce0b39fcef44ca0a81ff4909da2d
 è
 _app/src/main/java/com/thaislins/filmguide/modules/details/model/repository/DetailsRepository.kt,b/7/b7f0a6901f8fcc50ac497427b5f5b2ab6ae4e245
-í
-bapp/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSourceImp.kt,0/0/002984bca33a44e4190b46b11c396784cba1571a
 á
 Wapp/src/main/java/com/thaislins/filmguide/modules/details/viewmodel/DetailsViewModel.kt,5/2/52ba4c23da13432f5be8d826e4048edba1e42dd8
 x
@@ -71,3 +69,13 @@ o
 ?app/src/main/java/com/thaislins/filmguide/data/local/FilmDao.kt,5/6/560b74364cff10e0e26291fb77d9cf079b960446
 é
 ^app/src/main/java/com/thaislins/filmguide/modules/home/model/datasource/FilmDataSourceLocal.kt,8/8/88ac3e6b164632172b7c0f461eada397460a5242
+p
+@app/src/main/java/com/thaislins/filmguide/data/local/VideoDao.kt,0/9/09021ad5cffdb00ef6c44b17f3b0856a33b18aea
+î
+dapp/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSourceLocal.kt,5/c/5cd8bc95a65af96d7e139d8eda95d3017d320157
+ï
+eapp/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/DetailsDataSourceRemote.kt,a/3/a3c4597742c910d69a609275b898c84b7fb78100
+Å
+Qapp/src/main/java/com/thaislins/filmguide/modules/film/viewmodel/FilmViewModel.kt,a/f/af06c4941b325a37b2c4ace84fd00cc0d63d0a3d
+{
+Kapp/src/main/java/com/thaislins/filmguide/modules/film/view/FilmFragment.kt,3/2/321ae8518c75418c7212cdd214d322fa3c433a30

@@ -29,7 +29,7 @@ class DetailsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentDetailsBinding.inflate(inflater, container, false)
         binding.viewModel = detailsViewModel
-        binding.rvSimilarMovies.adapter = FilmAdapter(mutableListOf<Film?>(), context!!)
+        binding.rvSimilarMovies.adapter = FilmAdapter(mutableListOf<Film?>(), context!!, false)
         binding.rvSimilarMovies.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
