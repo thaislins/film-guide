@@ -79,3 +79,5 @@ eapp/src/main/java/com/thaislins/filmguide/modules/details/model/datasource/Deta
 Qapp/src/main/java/com/thaislins/filmguide/modules/film/viewmodel/FilmViewModel.kt,a/f/af06c4941b325a37b2c4ace84fd00cc0d63d0a3d
 {
 Kapp/src/main/java/com/thaislins/filmguide/modules/film/view/FilmFragment.kt,3/2/321ae8518c75418c7212cdd214d322fa3c433a30
+‰
+Yapp/src/main/java/com/thaislins/filmguide/modules/film/model/repository/FilmRepository.kt,d/d/ddd5a8d1908163bdb83039fc1c51e1319c487a7f

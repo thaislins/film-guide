@@ -7,8 +7,8 @@ import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
 import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
 
 class HomeRepository(
-    private val remoteDataSource: FilmDataSourceRemote,
-    private val localDataSource: FilmDataSourceLocal
+    val remoteDataSource: FilmDataSourceRemote,
+    val localDataSource: FilmDataSourceLocal
 ) : FilmDataSource {
 
     override suspend fun loadFilms(movieFilter: Int, page: Int): List<Film>? {

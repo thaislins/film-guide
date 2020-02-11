@@ -10,7 +10,6 @@ import com.thaislins.filmguide.modules.home.model.Response
 class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {
 
     val totalPages = hashMapOf<Int, Int?>()
-    val totalResults = hashMapOf<Int, Int?>()
     private val lang = "en-US"
     private var response: Response? = null
 
@@ -25,7 +24,6 @@ class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSourc
 
             if (response != null) {
                 totalPages[movieFilter] = response?.totalPages
-                totalResults[movieFilter] = response?.totalResuls
                 response?.results!!
             } else {
                 throw Exception()

@@ -3,7 +3,7 @@
 
     <!--  Home Fragment -->
     <string name="film_item_key">film-item-key</string>
-    <string name="list_film_item_key">list-film-item-key</string>
+    <string name="list_filter_item_key">list-filter-item-key</string>
     <string name="home_fragment_popular_movies">Popular Movies</string>
     <string name="home_fragment_top_rated">Top Rated</string>
     <string name="home_fragment_now_playing">Now Playing</string>

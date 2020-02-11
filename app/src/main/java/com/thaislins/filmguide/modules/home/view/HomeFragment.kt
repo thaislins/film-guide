@@ -10,17 +10,24 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.thaislins.filmguide.R
+import com.thaislins.filmguide.core.AppDatabase
+import com.thaislins.filmguide.core.MovieFilter
 import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
 import com.thaislins.filmguide.modules.home.view.adapter.ImagePagerAdapter
 import com.thaislins.filmguide.modules.home.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
+import org.koin.android.ext.android.inject
 import java.util.*
 
 class HomeFragment : Fragment() {
 
     private var timer: Timer = Timer()
+    private val appDatabase: AppDatabase by inject()
     private lateinit var binding: FragmentHomeBinding
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -58,6 +65,7 @@ class HomeFragment : Fragment() {
 
     fun setPullToRefresh() {
         swipeRefresh.setOnRefreshListener(OnRefreshListener {
+            clearDB()
             load()
             swipeRefresh.setRefreshing(false)
         })
@@ -66,6 +74,10 @@ class HomeFragment : Fragment() {
     private fun load() {
         homeViewModel.loadAllFilms()
         observeTrendingFilms()
+    }
+
+    private fun clearDB() = runBlocking {
+        GlobalScope.async { appDatabase.clearAllTables() }.await()
     }
 
     private fun setAdapters() {
@@ -100,7 +112,7 @@ class HomeFragment : Fragment() {
                         if (currentItem != null && previousItem != null) {
                             if (currentItem < previousItem) {
                                 pager?.currentItem = pager?.currentItem?.plus(1)!!
-                            } else {
+                            } else { // If item is last then set it to current
                                 pager?.currentItem = 0
                             }
                         }
@@ -114,19 +126,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun setButtonsClickListeners() {
-        btnPopularFilms.setOnClickListener { goToFilmFragment(homeViewModel.popularFilms.value!!) }
-        btnTopRated.setOnClickListener { goToFilmFragment(homeViewModel.topRated.value!!) }
-        btnNowPlaying.setOnClickListener { goToFilmFragment(homeViewModel.nowPlaying.value!!) }
+        btnPopularFilms.setOnClickListener { goToFilmFragment(MovieFilter.POPULAR.ordinal) }
+        btnTopRated.setOnClickListener { goToFilmFragment(MovieFilter.TOPRATED.ordinal) }
+        btnNowPlaying.setOnClickListener { goToFilmFragment(MovieFilter.NOWPLAYING.ordinal) }
     }
 
-    private fun goToFilmFragment(list: List<Film>) {
-        val array = arrayListOf<Film>()
-        array.addAll(list)
-
+    private fun goToFilmFragment(movieFilter: Int) {
         val bundle = Bundle()
-        bundle.putParcelableArrayList(
-            resources.getString(R.string.list_film_item_key),
-            array
+        bundle.putInt(
+            resources.getString(R.string.list_filter_item_key),
+            movieFilter
         )
 
         Navigation.findNavController(view!!).navigate(R.id.toFilmFragment, bundle)

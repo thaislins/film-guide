@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thaislins.filmguide.core.MovieFilter
+import com.thaislins.filmguide.core.isNetworkConnected
 import com.thaislins.filmguide.modules.film.model.repository.FilmRepository
 import com.thaislins.filmguide.modules.home.model.Film
 import kotlinx.coroutines.Dispatchers
@@ -26,13 +27,15 @@ class FilmViewModel() : ViewModel(), KoinComponent {
     }
 
     fun loadMoreFilms() = runBlocking {
-        val job = viewModelScope.launch(Dispatchers.IO) {
-            films.postValue(repository.loadMoreFilms(filmType.value!!))
-        }
+        if (isNetworkConnected) {
+            val job = viewModelScope.launch(Dispatchers.IO) {
+                films.postValue(repository.loadMoreFilms(filmType.value!!))
+            }
 
-        job.join()
-        incrementCurrentPage()
-        loading.postValue(false)
+            job.join()
+            incrementCurrentPage()
+            loading.postValue(false)
+        }
     }
 
     fun incrementCurrentPage() {

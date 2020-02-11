@@ -2,10 +2,12 @@ package com.thaislins.filmguide.modules.details.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.thaislins.filmguide.R
@@ -43,26 +45,19 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar!!.hide()
+        (activity as AppCompatActivity).supportActionBar?.hide()
         film = arguments?.getParcelable(resources.getString(R.string.film_item_key))
         detailsViewModel.getFilmDetails(film)
-        setWatchStatus()
+        pressBackButton()
         ivMoviePoster.let {
             Glide.with(context!!)
                 .load(BACKDROP_URL + film?.backdropPath).into(it)
         }
     }
 
-    private fun setWatchStatus() {
-
-        btnSetWatched.setOnClickListener {
-            if (film?.isWatched!!) {
-                film?.isWatched = false
-                btnSetWatched.setImageDrawable(resources.getDrawable(R.drawable.ic_not_watched))
-            } else {
-                film?.isWatched = true
-                btnSetWatched.setImageDrawable(resources.getDrawable(R.drawable.ic_watched))
-            }
+    private fun pressBackButton() {
+        btnReturn.setOnClickListener {
+            view?.findNavController()?.navigateUp()
         }
     }
 }

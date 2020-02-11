@@ -44,9 +44,9 @@ class FilmFragment : Fragment() {
         binding.rvFilms.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        val filmList =
-            arguments?.getParcelableArrayList<Film>(resources.getString(R.string.list_film_item_key))
-        filmViewModel.filmType.value = filmList?.get(0)?.filter
+        val filter =
+            arguments?.getInt(resources.getString(R.string.list_filter_item_key))
+        filmViewModel.filmType.value = filter
     }
 
     override fun onStart() {

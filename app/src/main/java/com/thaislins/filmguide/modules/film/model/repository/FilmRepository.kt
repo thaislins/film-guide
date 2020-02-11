@@ -21,9 +21,7 @@ class FilmRepository(
     }
 
     fun setCurrentPage(movieFilter: Int, filmsSize: Int?) {
-        val itemsPerPage =
-            remoteDataSource.totalResults[movieFilter]?.div(remoteDataSource.totalPages[movieFilter]!!)!!
-        currentPage = (filmsSize?.div(itemsPerPage))?.plus(1)!!
+        currentPage = (filmsSize?.div(20))?.plus(1)!!
     }
 
     suspend fun loadDBFilms(movieFilter: Int): List<Film>? {
