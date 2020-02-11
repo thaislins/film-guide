@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.thaislins.filmguide.R
+import com.thaislins.filmguide.core.isNetworkConnected
 import com.thaislins.filmguide.databinding.FragmentFilmBinding
 import com.thaislins.filmguide.modules.film.viewmodel.FilmViewModel
 import com.thaislins.filmguide.modules.home.model.Film
@@ -32,8 +33,6 @@ class FilmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        setHasOptionsMenu(true);
-        (activity as AppCompatActivity?)?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding = FragmentFilmBinding.inflate(inflater, container, false)
         binding.viewModel = filmViewModel
         binding.lifecycleOwner = this
@@ -77,7 +76,6 @@ class FilmFragment : Fragment() {
         super.onPrepareOptionsMenu(menu)
     }
 
-    //android.R.id.home:
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -94,12 +92,14 @@ class FilmFragment : Fragment() {
     }
 
     fun search(newText: String) {
-        if (!filmViewModel.searchResults.value.isNullOrEmpty()) {
-            filmViewModel.searchResults.value!!.clear()
-        }
+        if (isNetworkConnected) {
+            if (!filmViewModel.searchResults.value.isNullOrEmpty()) {
+                filmViewModel.searchResults.value!!.clear()
+            }
 
-        if (newText != "") {
-            filmViewModel.searchFilms(newText)
+            if (newText != "") {
+                filmViewModel.searchFilms(newText)
+            }
         }
     }
 
@@ -119,6 +119,12 @@ class FilmFragment : Fragment() {
             addOnScrollListener()
             observeLoading()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setHasOptionsMenu(true)
+        (activity as AppCompatActivity?)?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
     }
 
     fun observeLoading() {
