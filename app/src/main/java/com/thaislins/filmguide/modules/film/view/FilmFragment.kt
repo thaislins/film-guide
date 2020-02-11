@@ -1,15 +1,14 @@
 package com.thaislins.filmguide.modules.film.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.thaislins.filmguide.R
@@ -22,7 +21,6 @@ class FilmFragment : Fragment() {
 
     private var loading = false
     private val filter by lazy { arguments?.getInt(resources.getString(R.string.list_filter_item_key)) }
-    private var item = 0
     private val filmViewModel: FilmViewModel by lazy {
         ViewModelProvider(this).get(FilmViewModel()::class.java)
     }
@@ -35,6 +33,7 @@ class FilmFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         setHasOptionsMenu(true);
+        (activity as AppCompatActivity?)?.getSupportActionBar()?.setDisplayHomeAsUpEnabled(true)
         binding = FragmentFilmBinding.inflate(inflater, container, false)
         binding.viewModel = filmViewModel
         binding.lifecycleOwner = this
@@ -76,6 +75,22 @@ class FilmFragment : Fragment() {
             })
         } else menu.findItem(R.id.search_view).isVisible = false
         super.onPrepareOptionsMenu(menu)
+    }
+
+    //android.R.id.home:
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                pressBackButton()
+                return true
+            }
+        }
+
+        return false
+    }
+
+    private fun pressBackButton() {
+        view?.findNavController()?.navigateUp()
     }
 
     fun search(newText: String) {

@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackgroundBorderless"
         android:layout_margin="@dimen/marginSmall"
+        android:background="?selectableItemBackgroundBorderless"
         android:clickable="true">
 
         <com.google.android.material.card.MaterialCardView
@@ -73,6 +73,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_star"
+                android:drawablePadding="5dp"
                 android:text="@{String.valueOf(film.voteAverage)}"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
