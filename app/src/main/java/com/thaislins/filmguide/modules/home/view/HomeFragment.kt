@@ -46,12 +46,14 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        menu.findItem(R.id.action_search).isVisible = false
-        super.onPrepareOptionsMenu(menu)
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_search -> {
+                goToFilmFragment(-1)
+                return true
+            }
+        }
+
         return false
     }
 

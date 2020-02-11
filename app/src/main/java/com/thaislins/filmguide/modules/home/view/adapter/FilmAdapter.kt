@@ -22,9 +22,8 @@ import com.thaislins.filmguide.databinding.ItemFilmBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import java.util.*
 
-
 class FilmAdapter(
-    private var films: MutableList<Film?>,
+    var films: MutableList<Film?>,
     private var context: Context,
     private var showDetails: Boolean
 ) :

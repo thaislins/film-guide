@@ -1,16 +1,20 @@
 package com.thaislins.filmguide.modules.film.model.repository
 
 import com.thaislins.filmguide.modules.home.model.Film
-import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSource
-import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceLocal
-import com.thaislins.filmguide.modules.home.model.datasource.FilmDataSourceRemote
+import com.thaislins.filmguide.modules.home.model.datasource.HomeDataSource
+import com.thaislins.filmguide.modules.home.model.datasource.HomeDataSourceLocal
+import com.thaislins.filmguide.modules.home.model.datasource.HomeDataSourceRemote
 
 class FilmRepository(
-    private val remoteDataSource: FilmDataSourceRemote,
-    private val localDataSource: FilmDataSourceLocal
-) : FilmDataSource {
+    private val remoteDataSource: HomeDataSourceRemote,
+    private val localDataSource: HomeDataSourceLocal
+) : HomeDataSource {
 
     var currentPage: Int = 0
+
+    suspend fun searchFilms(text: String): List<Film> {
+        return remoteDataSource.searchFilms(text)
+    }
 
     suspend fun loadMoreFilms(movieFilter: Int): List<Film>? {
         return if (currentPage <= remoteDataSource.totalPages[movieFilter]!!) {

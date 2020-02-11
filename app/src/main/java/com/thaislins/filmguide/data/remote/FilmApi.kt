@@ -6,7 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-class TMDBApi {
+class FilmApi {
 
     /**
      * Creates a retrofit object to be used for a request

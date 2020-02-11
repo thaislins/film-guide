@@ -2,8 +2,11 @@ package com.thaislins.filmguide.modules.film.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuItemCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +21,7 @@ import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
 class FilmFragment : Fragment() {
 
     private var loading = false
+    private val filter by lazy { arguments?.getInt(resources.getString(R.string.list_filter_item_key)) }
     private var item = 0
     private val filmViewModel: FilmViewModel by lazy {
         ViewModelProvider(this).get(FilmViewModel()::class.java)
@@ -30,6 +34,7 @@ class FilmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
         binding = FragmentFilmBinding.inflate(inflater, container, false)
         binding.viewModel = filmViewModel
         binding.lifecycleOwner = this
@@ -39,21 +44,66 @@ class FilmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        observeSearchResults()
         binding.rvFilms.adapter = FilmAdapter(mutableListOf<Film?>(), context!!, true)
         binding.rvFilms.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        val filter =
-            arguments?.getInt(resources.getString(R.string.list_filter_item_key))
         filmViewModel.filmType.value = filter
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        var searchView: SearchView? = null
+        menu.findItem(R.id.action_search).isVisible = false
+        if (filter == -1) {
+
+            val searchItem = menu.findItem(R.id.search_view)
+            menu.findItem(R.id.search_view).isVisible = true
+            searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+            searchView.setIconifiedByDefault(false)
+            searchView.requestFocus()
+
+            searchView.setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String): Boolean {
+                    search(newText)
+                    return false
+                }
+            })
+        } else menu.findItem(R.id.search_view).isVisible = false
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    fun search(newText: String) {
+        if (!filmViewModel.searchResults.value.isNullOrEmpty()) {
+            filmViewModel.searchResults.value!!.clear()
+        }
+
+        if (newText != "") {
+            filmViewModel.searchFilms(newText)
+        }
+    }
+
+    private fun observeSearchResults() {
+        filmViewModel.searchResults.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                (binding.rvFilms.adapter as FilmAdapter).films = it as MutableList<Film?>
+                (binding.rvFilms.adapter as FilmAdapter).notifyDataSetChanged()
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
         filmViewModel.loadDBFilms()
-        addOnScrollListener()
-        observeLoading()
+        if (filter != -1) {
+            addOnScrollListener()
+            observeLoading()
+        }
     }
 
     fun observeLoading() {

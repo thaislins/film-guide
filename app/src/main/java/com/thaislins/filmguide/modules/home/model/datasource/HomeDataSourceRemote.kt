@@ -7,11 +7,26 @@ import com.thaislins.filmguide.data.remote.FilmService
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.model.Response
 
-class FilmDataSourceRemote(private val filmService: FilmService) : FilmDataSource {
+class HomeDataSourceRemote(private val filmService: FilmService) : HomeDataSource {
 
     val totalPages = hashMapOf<Int, Int?>()
     private val lang = "en-US"
     private var response: Response? = null
+
+    suspend fun searchFilms(text: String): List<Film> {
+        response = filmService.searchFilms(API_KEY, lang, text)
+
+        return try {
+            if (response != null) {
+                response?.results!!
+            } else {
+                throw Exception()
+            }
+        } catch (ex: Exception) {
+            Log.e("EXCEPTION", ex.message.toString())
+            throw Exception()
+        }
+    }
 
     override suspend fun loadFilms(movieFilter: Int, page: Int): List<Film>? {
         return try {

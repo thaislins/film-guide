@@ -13,12 +13,20 @@ import kotlinx.coroutines.runBlocking
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 
+
 class FilmViewModel() : ViewModel(), KoinComponent {
 
     private val repository: FilmRepository by inject()
     val films = MutableLiveData<List<Film>>().apply { value = null }
+    val searchResults = MutableLiveData<ArrayList<Film>>().apply { value = null }
     val filmType = MutableLiveData<Int>()
     val loading = MutableLiveData<Boolean>()
+
+    fun searchFilms(text: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            searchResults.postValue(repository.searchFilms(text) as ArrayList<Film>?)
+        }
+    }
 
     fun loadDBFilms() {
         viewModelScope.launch(Dispatchers.IO) {
