@@ -20,6 +20,7 @@ class HomeDataSourceRemote(private val filmService: FilmService) : HomeDataSourc
             if (response != null) {
                 response?.results!!
             } else {
+                response
                 throw Exception()
             }
         } catch (ex: Exception) {

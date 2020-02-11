@@ -15,6 +15,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import com.thaislins.filmguide.R
 import com.thaislins.filmguide.core.AppDatabase
 import com.thaislins.filmguide.core.MovieFilter
+import com.thaislins.filmguide.core.isNetworkConnected
 import com.thaislins.filmguide.databinding.FragmentHomeBinding
 import com.thaislins.filmguide.modules.home.model.Film
 import com.thaislins.filmguide.modules.home.view.adapter.FilmAdapter
@@ -71,13 +72,13 @@ class HomeFragment : Fragment() {
 
     fun setPullToRefresh() {
         swipeRefresh.setOnRefreshListener(OnRefreshListener {
-            clearDB()
             load()
             swipeRefresh.setRefreshing(false)
         })
     }
 
     private fun load() {
+        if (isNetworkConnected) clearDB()
         homeViewModel.loadAllFilms()
         observeTrendingFilms()
     }
